@@ -921,6 +921,25 @@ DOWN</text>
 <text x="-1.5" y="2" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-1.5" y="-3" size="1" layer="27" ratio="10">&gt;VALUE</text>
 </package>
+<package name="TDFN8EP">
+<description>maxim</description>
+<wire x1="-1" y1="-1" x2="1.1" y2="-1" width="0.1" layer="21"/>
+<wire x1="1.1" y1="-1" x2="1.1" y2="1" width="0.1" layer="21"/>
+<wire x1="1.1" y1="1" x2="-1.1" y2="1" width="0.1" layer="21"/>
+<smd name="1" x="-0.75" y="-0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="2" x="-0.25" y="-0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="3" x="0.25" y="-0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="4" x="0.75" y="-0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="8" x="-0.75" y="0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="7" x="-0.25" y="0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="6" x="0.25" y="0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<smd name="5" x="0.75" y="0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
+<wire x1="-1.1" y1="1" x2="-1.1" y2="-0.7" width="0.1" layer="21"/>
+<circle x="-1.1" y="-1" radius="0.2" width="0.1" layer="21"/>
+<smd name="PAD" x="0" y="0" dx="1.2" dy="0.6" layer="1"/>
+<text x="-1.2" y="1.6" size="1" layer="25" ratio="10">&gt;NAME</text>
+<text x="-1.2" y="-2.6" size="1" layer="27" ratio="10">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="STM32F411/48">
@@ -1291,6 +1310,22 @@ LOGO</text>
 <text x="2.54" y="-20.32" size="2.54" layer="96">&gt;VALUE</text>
 <pin name="CS" x="-17.78" y="10.16" length="middle"/>
 <pin name="SA0" x="-17.78" y="-10.16" length="middle"/>
+</symbol>
+<symbol name="MAX17048">
+<pin name="CELL" x="-15.24" y="5.08" length="middle"/>
+<pin name="VCC" x="-15.24" y="2.54" length="middle"/>
+<pin name="CTG" x="-15.24" y="-2.54" length="middle"/>
+<pin name="GND" x="-15.24" y="-5.08" length="middle"/>
+<pin name="SDA" x="15.24" y="5.08" length="middle" rot="R180"/>
+<pin name="SCL" x="15.24" y="2.54" length="middle" rot="R180"/>
+<pin name="QSTRT" x="15.24" y="-2.54" length="middle" rot="R180"/>
+<pin name="ALERT" x="15.24" y="-5.08" length="middle" rot="R180"/>
+<wire x1="-10.16" y1="7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-7.62" x2="10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-7.62" x2="10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
+<text x="-10.16" y="10.16" size="2.54" layer="95" ratio="10">&gt;NAME</text>
+<text x="-10.16" y="-12.7" size="2.54" layer="96" ratio="10">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -2009,6 +2044,28 @@ LOGO</text>
 <connect gate="G$1" pin="SETP" pad="3"/>
 <connect gate="G$1" pin="VDD" pad="14"/>
 <connect gate="G$1" pin="VDDIO" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MAX17048" prefix="U">
+<gates>
+<gate name="G$1" symbol="MAX17048" x="5.08" y="0"/>
+</gates>
+<devices>
+<device name="" package="TDFN8EP">
+<connects>
+<connect gate="G$1" pin="ALERT" pad="5"/>
+<connect gate="G$1" pin="CELL" pad="2"/>
+<connect gate="G$1" pin="CTG" pad="1"/>
+<connect gate="G$1" pin="GND" pad="4 PAD"/>
+<connect gate="G$1" pin="QSTRT" pad="6"/>
+<connect gate="G$1" pin="SCL" pad="7"/>
+<connect gate="G$1" pin="SDA" pad="8"/>
+<connect gate="G$1" pin="VCC" pad="3"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -3079,6 +3136,7 @@ chip</description>
 <part name="B1" library="jaw" deviceset="BATTERY" device="-CR2016"/>
 <part name="X1" library="jaw" deviceset="RESONATOR" device="CTCE" value="12MHz"/>
 <part name="U2" library="jaw" deviceset="LSM303D" device=""/>
+<part name="U5" library="jaw" deviceset="MAX17048" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3180,6 +3238,7 @@ display</text>
 <instance part="B1" gate="G$1" x="226.06" y="170.18"/>
 <instance part="X1" gate="G$1" x="144.78" y="160.02"/>
 <instance part="U2" gate="G$1" x="99.06" y="106.68"/>
+<instance part="U5" gate="G$1" x="127" y="25.4"/>
 </instances>
 <busses>
 </busses>
@@ -3240,6 +3299,15 @@ display</text>
 <wire x1="35.56" y1="17.78" x2="43.18" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="U3" gate="G$1" pin="GND"/>
 <wire x1="35.56" y1="27.94" x2="35.56" y2="17.78" width="0.1524" layer="91"/>
+<pinref part="U5" gate="G$1" pin="CTG"/>
+<wire x1="111.76" y1="22.86" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="22.86" x2="99.06" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="20.32" x2="99.06" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="17.78" x2="86.36" y2="17.78" width="0.1524" layer="91"/>
+<junction x="86.36" y="17.78"/>
+<pinref part="U5" gate="G$1" pin="GND"/>
+<wire x1="111.76" y1="20.32" x2="99.06" y2="20.32" width="0.1524" layer="91"/>
+<junction x="99.06" y="20.32"/>
 </segment>
 <segment>
 <pinref part="U4" gate="G$1" pin="NSHTDN"/>
@@ -3385,6 +3453,11 @@ display</text>
 <pinref part="U2" gate="G$1" pin="SA0"/>
 <wire x1="81.28" y1="96.52" x2="76.2" y2="96.52" width="0.1524" layer="91"/>
 <label x="73.66" y="96.52" size="1.27" layer="95"/>
+</segment>
+<segment>
+<pinref part="U5" gate="G$1" pin="QSTRT"/>
+<wire x1="142.24" y1="22.86" x2="147.32" y2="22.86" width="0.1524" layer="91"/>
+<label x="147.32" y="22.86" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -3848,6 +3921,11 @@ display</text>
 <wire x1="53.34" y1="50.8" x2="55.88" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="55.88" y1="50.8" x2="55.88" y2="53.34" width="0.1524" layer="91"/>
 <junction x="55.88" y="53.34"/>
+<pinref part="U5" gate="G$1" pin="VCC"/>
+<wire x1="111.76" y1="27.94" x2="99.06" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="27.94" x2="99.06" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="35.56" x2="86.36" y2="35.56" width="0.1524" layer="91"/>
+<junction x="86.36" y="35.56"/>
 </segment>
 </net>
 <net name="BATSTAT" class="0">
@@ -3883,6 +3961,11 @@ display</text>
 <wire x1="81.28" y1="111.76" x2="76.2" y2="111.76" width="0.1524" layer="91"/>
 <label x="73.66" y="111.76" size="1.27" layer="95"/>
 </segment>
+<segment>
+<pinref part="U5" gate="G$1" pin="SCL"/>
+<wire x1="142.24" y1="27.94" x2="147.32" y2="27.94" width="0.1524" layer="91"/>
+<label x="147.32" y="27.94" size="1.27" layer="95"/>
+</segment>
 </net>
 <net name="I2CDA" class="0">
 <segment>
@@ -3904,6 +3987,11 @@ display</text>
 <pinref part="U2" gate="G$1" pin="SDA"/>
 <wire x1="81.28" y1="109.22" x2="76.2" y2="109.22" width="0.1524" layer="91"/>
 <label x="73.66" y="109.22" size="1.27" layer="95"/>
+</segment>
+<segment>
+<pinref part="U5" gate="G$1" pin="SDA"/>
+<wire x1="142.24" y1="30.48" x2="147.32" y2="30.48" width="0.1524" layer="91"/>
+<label x="147.32" y="30.48" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="DPYDC" class="0">
@@ -4150,6 +4238,12 @@ display</text>
 <wire x1="116.84" y1="101.6" x2="116.84" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="U2" gate="G$1" pin="SETC"/>
 <wire x1="116.84" y1="104.14" x2="114.3" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$22" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="ALERT"/>
+<wire x1="142.24" y1="20.32" x2="147.32" y2="20.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
