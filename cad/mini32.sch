@@ -6728,6 +6728,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="CONN1" library="jaw" deviceset="HEADER-5X2" device="-PTH"/>
 <part name="LOGO1" library="Sparkfun-Aesthetics" deviceset="OSHW-LOGO" device="M"/>
 <part name="U$1" library="jaw" deviceset="ROBOTMAN-LOGO" device=""/>
+<part name="R2" library="jaw" deviceset="R" device="0603" value="100"/>
 </parts>
 <sheets>
 <sheet>
@@ -6831,6 +6832,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="CONN1" gate="G$1" x="251.46" y="68.58"/>
 <instance part="LOGO1" gate="G$1" x="203.2" y="45.72"/>
 <instance part="U$1" gate="G$1" x="238.76" y="40.64"/>
+<instance part="R2" gate="G$1" x="17.78" y="121.92"/>
 </instances>
 <busses>
 </busses>
@@ -7377,14 +7379,14 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="IOB9" class="0">
 <segment>
-<pinref part="Q1" gate="G$1" pin="G"/>
-<wire x1="22.86" y1="121.92" x2="17.78" y2="121.92" width="0.1524" layer="91"/>
-<label x="12.7" y="121.92" size="1.27" layer="95"/>
-</segment>
-<segment>
 <pinref part="U1" gate="G$1" pin="PB9"/>
 <wire x1="193.04" y1="116.84" x2="198.12" y2="116.84" width="0.1524" layer="91"/>
 <label x="198.12" y="116.84" size="1.27" layer="95"/>
+</segment>
+<segment>
+<pinref part="R2" gate="G$1" pin="P$1"/>
+<wire x1="10.16" y1="121.92" x2="12.7" y2="121.92" width="0.1524" layer="91"/>
+<label x="7.62" y="121.92" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="IOB8" class="0">
@@ -7851,6 +7853,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="U5" gate="G$1" pin="ALERT"/>
 <wire x1="142.24" y1="20.32" x2="147.32" y2="20.32" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="Q1" gate="G$1" pin="G"/>
+<pinref part="R2" gate="G$1" pin="P$2"/>
 </segment>
 </net>
 </nets>
