@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.1.0">
+<eagle version="7.2.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -877,8 +877,8 @@ DOWN</text>
 </package>
 <package name="CR1216">
 <smd name="MINUS" x="0" y="0" dx="9" dy="9" layer="1" roundness="100"/>
-<smd name="PLUS1" x="-8" y="0" dx="2" dy="5" layer="1"/>
-<smd name="PLUS2" x="8" y="0" dx="2" dy="5" layer="1"/>
+<smd name="PLUS1" x="-7.5" y="0" dx="2" dy="5" layer="1"/>
+<smd name="PLUS2" x="7.5" y="0" dx="2" dy="5" layer="1"/>
 <circle x="0" y="0" radius="6.5" width="0.127" layer="21"/>
 <wire x1="-10" y1="5" x2="-10" y2="-5" width="0.1" layer="21"/>
 <wire x1="-10" y1="-5" x2="10" y2="-5" width="0.1" layer="21"/>
