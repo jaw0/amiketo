@@ -81,6 +81,7 @@
 <layer number="112" name="tSilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="113" name="IDFDebug" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="116" name="Patch_BOT" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="118" name="Rect_Pads" color="7" fill="1" visible="no" active="no"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="123" name="tTestmark" color="7" fill="1" visible="no" active="yes"/>
@@ -132,6 +133,8 @@
 <layer number="229" name="229bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="230" name="230bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="231" name="231bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="232" name="Eagle3D_PG2" color="7" fill="1" visible="no" active="no"/>
+<layer number="233" name="Eagle3D_PG3" color="7" fill="1" visible="no" active="no"/>
 <layer number="248" name="Housing" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="249" name="Edge" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="250" name="Descript" color="7" fill="1" visible="yes" active="yes"/>
@@ -6834,9 +6837,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <junction x="99.06" y="20.32"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="NSHTDN"/>
 <pinref part="U4" gate="G$1" pin="GND"/>
-<wire x1="93.98" y1="55.88" x2="93.98" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="48.26" x2="109.22" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="G$1" pin="GND"/>
 <wire x1="109.22" y1="48.26" x2="109.22" y2="43.18" width="0.1524" layer="91"/>
@@ -6848,7 +6849,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="132.08" y1="48.26" x2="109.22" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="50.8" x2="88.9" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="48.26" x2="93.98" y2="48.26" width="0.1524" layer="91"/>
-<junction x="93.98" y="48.26"/>
 <pinref part="C5" gate="G$1" pin="P$2"/>
 <wire x1="154.94" y1="50.8" x2="154.94" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="154.94" y1="48.26" x2="139.7" y2="48.26" width="0.1524" layer="91"/>
@@ -7178,14 +7178,19 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="C1" gate="G$1" pin="P$1"/>
 <pinref part="U4" gate="G$1" pin="VIN"/>
-<wire x1="88.9" y1="58.42" x2="93.98" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="58.42" x2="91.44" y2="58.42" width="0.1524" layer="91"/>
 <junction x="88.9" y="58.42"/>
+<wire x1="91.44" y1="58.42" x2="93.98" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="58.42" x2="88.9" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="58.42" x2="81.28" y2="66.04" width="0.1524" layer="91"/>
 <label x="81.28" y="66.04" size="1.778" layer="95"/>
 <pinref part="U3" gate="G$1" pin="VOUT"/>
 <wire x1="53.34" y1="58.42" x2="81.28" y2="58.42" width="0.1524" layer="91"/>
 <junction x="81.28" y="58.42"/>
+<pinref part="U4" gate="G$1" pin="NSHTDN"/>
+<wire x1="93.98" y1="55.88" x2="91.44" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="55.88" x2="91.44" y2="58.42" width="0.1524" layer="91"/>
+<junction x="91.44" y="58.42"/>
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="D1"/>
