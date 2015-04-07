@@ -142,8 +142,8 @@
 <wire x1="4" y1="54.5" x2="3" y2="53.5" width="0" layer="20" curve="90"/>
 <wire x1="3" y1="53.5" x2="3" y2="34" width="0" layer="20"/>
 <wire x1="3" y1="34" x2="4" y2="33" width="0" layer="20" curve="90"/>
-<text x="14" y="54" size="1" layer="22" ratio="10" rot="MR270">JAW 2015-03</text>
-<text x="12.5" y="54" size="1.1" layer="22" ratio="10" rot="MR270">mini32/oled</text>
+<text x="14" y="54" size="1.25" layer="22" ratio="10" rot="MR270">JAW 2015-03</text>
+<text x="12.3" y="54" size="1.05" layer="22" ratio="10" rot="MR270">www.amiketo.com</text>
 <text x="16" y="34" size="1" layer="21" ratio="10" rot="R90">OLED 128x32</text>
 </plain>
 <libraries>
@@ -422,7 +422,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="13.2575" y="54.08" size="1.27" layer="25" font="vector" ratio="10" rot="R270"/>
 </element>
 <element name="CN2" library="jaw" package="M05-1X12-RA" value="MA12-1" x="8.6" y="39.35" smashed="yes" rot="MR0">
-<attribute name="NAME" x="10.3" y="36.75" size="1.27" layer="26" rot="MR0"/>
+<attribute name="NAME" x="10.3" y="36.75" size="1.27" layer="26" rot="MR0" display="off"/>
 </element>
 <element name="C1" library="jaw" package="SMD0603" value=".1u" x="5.48" y="43.6" smashed="yes" rot="MR0">
 <attribute name="NAME" x="6.258" y="44.716" size="1.27" layer="26" font="vector" ratio="10" rot="MR0"/>

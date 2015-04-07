@@ -413,6 +413,59 @@ chip</description>
 <wire x1="0.4" y1="-4.3" x2="1.6" y2="-4.3" width="0.2" layer="21"/>
 <wire x1="1.6" y1="-4.3" x2="1.5" y2="-3.9" width="0.2" layer="21"/>
 </package>
+<package name="ROBOTMAN-LOGO2">
+<wire x1="0.3" y1="4.4" x2="1.5" y2="3.2" width="0.25" layer="21" curve="-90"/>
+<wire x1="1.5" y1="3.2" x2="1.5" y2="1.7" width="0.25" layer="21"/>
+<wire x1="1.5" y1="1.7" x2="0.3" y2="1.7" width="0.25" layer="21"/>
+<wire x1="0.3" y1="1.7" x2="-0.2" y2="1.7" width="0.25" layer="21"/>
+<wire x1="-0.2" y1="1.7" x2="-1.5" y2="1.7" width="0.25" layer="21"/>
+<wire x1="-1.5" y1="1.7" x2="-1.5" y2="3.2" width="0.25" layer="21"/>
+<wire x1="-1.5" y1="3.2" x2="-0.3" y2="4.4" width="0.25" layer="21" curve="-90"/>
+<wire x1="-1.8" y1="1.1" x2="-0.2" y2="1.1" width="0.25" layer="21"/>
+<wire x1="-0.2" y1="1.1" x2="0.3" y2="1.1" width="0.25" layer="21"/>
+<wire x1="0.3" y1="1.1" x2="1.9" y2="1.1" width="0.25" layer="21"/>
+<wire x1="1.7" y1="-1.8" x2="1.4" y2="-1.8" width="0.25" layer="21"/>
+<wire x1="1.4" y1="-1.8" x2="0.4" y2="-1.8" width="0.25" layer="21"/>
+<wire x1="0.4" y1="-1.8" x2="-0.4" y2="-1.8" width="0.25" layer="21"/>
+<wire x1="-0.4" y1="-1.8" x2="-1.4" y2="-1.8" width="0.25" layer="21"/>
+<wire x1="-1.4" y1="-1.8" x2="-1.7" y2="-1.8" width="0.25" layer="21"/>
+<wire x1="-1.7" y1="-1.8" x2="-1.9" y2="0.2" width="0.25" layer="21"/>
+<wire x1="-1.9" y1="0.2" x2="-1.8" y2="1.1" width="0.25" layer="21"/>
+<wire x1="-0.2" y1="1.7" x2="-0.2" y2="1.1" width="0.25" layer="21"/>
+<wire x1="0.3" y1="1.7" x2="0.3" y2="1.1" width="0.25" layer="21"/>
+<wire x1="1.9" y1="1.1" x2="2.8" y2="1.2" width="0.25" layer="21"/>
+<wire x1="2.8" y1="1.2" x2="2.6" y2="3.2" width="0.25" layer="21"/>
+<wire x1="3.2" y1="3.3" x2="3.5" y2="0.5" width="0.25" layer="21"/>
+<wire x1="3.5" y1="0.5" x2="2" y2="0.2" width="0.25" layer="21"/>
+<wire x1="-1.8" y1="1.1" x2="-2.8" y2="1.2" width="0.25" layer="21"/>
+<wire x1="-2.8" y1="1.2" x2="-3.4" y2="3.1" width="0.25" layer="21"/>
+<wire x1="-4" y1="2.9" x2="-3.3" y2="0.5" width="0.25" layer="21"/>
+<wire x1="-3.3" y1="0.5" x2="-1.9" y2="0.2" width="0.25" layer="21"/>
+<wire x1="-1.4" y1="-1.8" x2="-1.4" y2="-4" width="0.25" layer="21"/>
+<wire x1="-0.4" y1="-1.8" x2="-0.4" y2="-4" width="0.25" layer="21"/>
+<wire x1="1.4" y1="-1.8" x2="1.4" y2="-4" width="0.25" layer="21"/>
+<wire x1="0.4" y1="-1.8" x2="0.4" y2="-4" width="0.25" layer="21"/>
+<circle x="-0.7" y="2.7" radius="0.3" width="0.25" layer="21"/>
+<circle x="0.7" y="2.8" radius="0.4" width="0.25" layer="21"/>
+<wire x1="2.6" y1="3.2" x2="3.2" y2="3.3" width="0.25" layer="21"/>
+<wire x1="-4" y1="2.9" x2="-3.4" y2="3.1" width="0.25" layer="21"/>
+<wire x1="2.7" y1="3.2" x2="2.5" y2="3.7" width="0.25" layer="21"/>
+<wire x1="3" y1="3.3" x2="3" y2="3.8" width="0.25" layer="21"/>
+<wire x1="-3.9" y1="2.9" x2="-4.2" y2="3.4" width="0.25" layer="21"/>
+<wire x1="-3.6" y1="3.1" x2="-3.7" y2="3.6" width="0.25" layer="21"/>
+<wire x1="0.4" y1="-4" x2="1.4" y2="-4" width="0.25" layer="21"/>
+<wire x1="-1.4" y1="-4" x2="-0.4" y2="-4" width="0.25" layer="21"/>
+<wire x1="-1.4" y1="-4" x2="-1.6" y2="-4.4" width="0.2" layer="21"/>
+<wire x1="-1.6" y1="-4.4" x2="-0.4" y2="-4.4" width="0.2" layer="21"/>
+<wire x1="-0.4" y1="-4.4" x2="-0.4" y2="-4" width="0.2" layer="21"/>
+<wire x1="0.4" y1="-4" x2="0.4" y2="-4.4" width="0.2" layer="21"/>
+<wire x1="0.4" y1="-4.4" x2="1.6" y2="-4.4" width="0.2" layer="21"/>
+<wire x1="1.6" y1="-4.4" x2="1.4" y2="-4" width="0.2" layer="21"/>
+<wire x1="-0.3" y1="4.7" x2="-0.2" y2="4.2" width="0.25" layer="21"/>
+<wire x1="-0.3" y1="4.7" x2="0.3" y2="4.7" width="0.25" layer="21"/>
+<wire x1="1.9" y1="1.1" x2="2" y2="0.2" width="0.25" layer="21"/>
+<wire x1="2" y1="0.2" x2="1.7" y2="-1.8" width="0.25" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="PWR-GND">
@@ -668,6 +721,11 @@ LOGO</text>
 <technology name=""/>
 </technologies>
 </device>
+<device name="2" package="ROBOTMAN-LOGO2">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 </devicesets>
@@ -729,7 +787,7 @@ LOGO</text>
 <part name="C1" library="jaw" deviceset="C" device="0603"/>
 <part name="GND1" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="VCC1" library="jaw" deviceset="PWR-VCC" device=""/>
-<part name="U$1" library="jaw" deviceset="ROBOTMAN-LOGO" device=""/>
+<part name="U$1" library="jaw" deviceset="ROBOTMAN-LOGO" device="2" value="ROBOTMAN-LOGO2"/>
 <part name="U$2" library="adafruit" deviceset="FIDUCIAL" device=""/>
 <part name="U$3" library="adafruit" deviceset="FIDUCIAL" device=""/>
 </parts>
