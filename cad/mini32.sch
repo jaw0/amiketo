@@ -6797,6 +6797,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="VCCE3" library="jaw" deviceset="PWR-VCCE" device=""/>
 <part name="VCCE4" library="jaw" deviceset="PWR-VCCE" device=""/>
 <part name="C6" library="jaw" deviceset="C" device="0603" value="1u"/>
+<part name="C7" library="jaw" deviceset="C" device="0603" value="1u"/>
 </parts>
 <sheets>
 <sheet>
@@ -6855,7 +6856,7 @@ thru dpy + sd card while off</text>
 <instance part="VCCA2" gate="G$1" x="215.9" y="172.72"/>
 <instance part="C10" gate="G$1" x="223.52" y="152.4"/>
 <instance part="GND7" gate="G$1" x="223.52" y="144.78"/>
-<instance part="GND8" gate="G$1" x="233.68" y="162.56"/>
+<instance part="GND8" gate="G$1" x="233.68" y="157.48"/>
 <instance part="C11" gate="G$1" x="132.08" y="53.34"/>
 <instance part="R6" gate="G$1" x="50.8" y="177.8"/>
 <instance part="R7" gate="G$1" x="50.8" y="170.18"/>
@@ -6906,6 +6907,7 @@ thru dpy + sd card while off</text>
 <instance part="VCCE3" gate="G$1" x="236.22" y="78.74"/>
 <instance part="VCCE4" gate="G$1" x="220.98" y="81.28"/>
 <instance part="C6" gate="G$1" x="226.06" y="73.66"/>
+<instance part="C7" gate="G$1" x="226.06" y="165.1" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -7022,9 +7024,13 @@ thru dpy + sd card while off</text>
 </segment>
 <segment>
 <pinref part="GND8" gate="G$1" pin="GND"/>
-<wire x1="233.68" y1="165.1" x2="233.68" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="233.68" y1="160.02" x2="233.68" y2="165.1" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="M"/>
+<wire x1="233.68" y1="165.1" x2="233.68" y2="170.18" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="170.18" x2="231.14" y2="170.18" width="0.1524" layer="91"/>
+<pinref part="C7" gate="G$1" pin="P$1"/>
+<wire x1="231.14" y1="165.1" x2="233.68" y2="165.1" width="0.1524" layer="91"/>
+<junction x="233.68" y="165.1"/>
 </segment>
 <segment>
 <pinref part="Q1" gate="G$1" pin="S"/>
@@ -7385,8 +7391,11 @@ thru dpy + sd card while off</text>
 <segment>
 <pinref part="U1" gate="G$1" pin="VBAT"/>
 <wire x1="193.04" y1="162.56" x2="223.52" y2="162.56" width="0.1524" layer="91"/>
-<wire x1="223.52" y1="162.56" x2="223.52" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="162.56" x2="223.52" y2="165.1" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="P"/>
+<pinref part="C7" gate="G$1" pin="P$2"/>
+<wire x1="223.52" y1="165.1" x2="223.52" y2="170.18" width="0.1524" layer="91"/>
+<junction x="223.52" y="165.1"/>
 </segment>
 </net>
 <net name="N$7" class="0">
