@@ -147,7 +147,7 @@
 <wire x1="53.3" y1="4" x2="53.3" y2="1" width="0" layer="20"/>
 <wire x1="53.3" y1="1" x2="53.8" y2="0.5" width="0" layer="20" curve="90"/>
 <text x="51" y="9" size="2" layer="22" ratio="10" rot="MR0">JAW 2015-03</text>
-<text x="51" y="6" size="1.6" layer="22" ratio="10" rot="MR0">AMIKETO/epaper</text>
+<text x="51" y="6" size="1.7" layer="22" ratio="10" rot="MR0">www.amiketo.com</text>
 <text x="31" y="4.5" size="1.5" layer="21" ratio="10">epaper 128x128</text>
 </plain>
 <libraries>
