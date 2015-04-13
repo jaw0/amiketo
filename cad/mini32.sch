@@ -202,6 +202,12 @@
 <circle x="-3.5" y="-3.5" radius="0.5" width="0.1" layer="21"/>
 <text x="-2.4" y="1.6" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-2.6" y="-2.5" size="1" layer="27" ratio="10">&gt;VALUE</text>
+<smd name="PAD" x="0" y="0" dx="5" dy="5" layer="1" cream="no"/>
+<rectangle x1="-2" y1="1" x2="-1" y2="2" layer="31"/>
+<rectangle x1="1" y1="1" x2="2" y2="2" layer="31"/>
+<rectangle x1="-2" y1="-2" x2="-1" y2="-1" layer="31"/>
+<rectangle x1="1" y1="-2" x2="2" y2="-1" layer="31"/>
+<rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" layer="31"/>
 </package>
 <package name="SOT-23-5">
 <wire x1="1.522" y1="0.81" x2="1.522" y2="-0.81" width="0.1524" layer="21"/>
@@ -814,11 +820,16 @@ DOWN</text>
 <smd name="18" x="-1.9" y="0" dx="0.8" dy="0.3" layer="1"/>
 <smd name="19" x="-1.9" y="-0.5" dx="0.8" dy="0.3" layer="1"/>
 <smd name="20" x="-1.9" y="-1" dx="0.8" dy="0.3" layer="1"/>
-<smd name="PAD" x="0" y="0" dx="2" dy="2" layer="1"/>
+<smd name="PAD" x="0" y="0" dx="2" dy="2" layer="1" cream="no"/>
 <wire x1="-2" y1="2" x2="-2" y2="-1.5" width="0.1" layer="21"/>
 <circle x="-2" y="-2" radius="0.4" width="0.1" layer="21"/>
 <text x="-2" y="3" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-2" y="-4" size="1" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="-0.2" y1="-0.2" x2="0.2" y2="0.2" layer="31"/>
+<rectangle x1="-0.9" y1="0.5" x2="-0.5" y2="0.9" layer="31"/>
+<rectangle x1="0.5" y1="0.5" x2="0.9" y2="0.9" layer="31"/>
+<rectangle x1="0.5" y1="-0.9" x2="0.9" y2="-0.5" layer="31"/>
+<rectangle x1="-0.9" y1="-0.9" x2="-0.5" y2="-0.5" layer="31"/>
 </package>
 <package name="ROBOTMAN-LOGO">
 <wire x1="-1.5" y1="4" x2="0" y2="4" width="0.25" layer="21"/>
@@ -1680,7 +1691,7 @@ LOGO</text>
 <connects>
 <connect gate="G$1" pin="BOOT0" pad="P44"/>
 <connect gate="G$1" pin="C13" pad="P2"/>
-<connect gate="G$1" pin="GND" pad="P23 P35 P47"/>
+<connect gate="G$1" pin="GND" pad="P23 P35 P47 PAD"/>
 <connect gate="G$1" pin="GNDA" pad="P8"/>
 <connect gate="G$1" pin="NRST" pad="P7"/>
 <connect gate="G$1" pin="OSC32IN" pad="P3"/>
