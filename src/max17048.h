@@ -1,0 +1,17 @@
+
+
+#define MAX17048_ADDRESS		(0x6C >> 1)
+
+#define MAX17048_REGISTER_VCELL  0x02	// battery voltage 78.125FV/cell
+#define MAX17048_REGISTER_SOC    0x04	// battery state of charge
+#define MAX17048_REGISTER_MODE   0x06
+#define MAX17048_REGISTER_VERS   0x08
+#define MAX17048_REGISTER_HIBRT  0x0A
+#define MAX17048_REGISTER_CONFIG 0x0C
+#define MAX17048_REGISTER_VALRT  0x14
+#define MAX17048_REGISTER_CRATE  0x16	// approximate charge or discharge rate
+#define MAX17048_REGISTER_VRESET 0x18
+#define MAX17048_REGISTER_STATUS 0x1A
+#define MAX17048_REGISTER_TABLE  0x40 // ..7F
+#define MAX17048_REGISTER_CMD    0xFE
+
