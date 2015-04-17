@@ -47,6 +47,12 @@ const struct pin_descr descr[] = {
     { "A7", GPIO_A7, ADC_1_7, TIMER_3_2, 2, -1, -1 },
     { "B0", GPIO_B0, ADC_1_8, TIMER_3_3, 2, -1, -1 },
     { "B1", GPIO_B1, ADC_1_9, TIMER_4_4, 2, -1, -1 },
+
+    // if the serial port is disabled
+#ifndef USE_SERIAL
+    { "A9",  GPIO_A9,  -1,      TIMER_1_2, 1, -1, -1 },
+    { "A10", GPIO_A10, -1,      TIMER_1_3, 1, -1, -1 },
+#endif
 };
 
 
@@ -60,6 +66,9 @@ struct pin_config {
 
 struct pin_config config[NUM_PINS];
 
+static const short sampletime[] = {
+    3, 15, 28, 56, 84, 112, 144, 480
+};
 
 int
 find_pin(const char *pin){
@@ -71,6 +80,16 @@ find_pin(const char *pin){
     return -1;
 }
 
+int
+best_sample_value(int samp){
+    short i;
+
+    for(i=0; i<ELEMENTSIN(sampletime); i++){
+        if( sampletime[i] >= samp ) return i;
+    }
+
+    return ELEMENTSIN(sampletime) - 1;
+}
 
 
 // pinmode PIN MODE [...]
@@ -130,8 +149,9 @@ DEFUN(pinmode, "set pin mode")
         }
         short m = GPIO_ANALOG;
         short s = 1;
-        // [0..7] see datasheet
-        if( argc > 4 && !strcmp(argv[3], "samples") ) s = atoi( argv[4] );
+
+        // QQQ - or specify the circuit impedance?
+        if( argc > 4 && !strcmp(argv[3], "samples") ) s = best_sample_value( atoi( argv[4] ) );
         gpio_init( descr[p].gpio,  m );
         adc_init( descr[p].adc, s );
         config[p].mode = PINMODE_ADC;
