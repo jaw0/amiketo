@@ -14,6 +14,7 @@
 #include <pwm.h>
 #include <userint.h>
 
+#include "defproto.h"
 #include "util.h"
 
 
@@ -23,41 +24,47 @@
 #define LOGFMT_RAW	3
 #define LOGFMT_SLN	4
 #define LOGFMT_ALAW	5
-#define LOGFMT_XML	6
+#define LOGFMT_XLAW	6	// unsigned alaw variant
+#define LOGFMT_XML	7
+#define LOGFMT_BITS	8	// raw packed bits (digital inputs only)
 
-// double buffer. sd driver runs best at 8k writes
+// sd driver runs best at 8k writes
 #define WRITESIZE	8192
 #define BUFSIZE		(4 * WRITESIZE)
 
 #define LONGTIME	5000000		// 5 sec
-#define SLOPTIME	1
+#define SLOPTIME	1		// the RTC wakeup has a 1 second resolution
 
 // lowpower = 1 => try to log+power off, 0 => stay on
 DEFVAR(int,        logger_lowpower, 1,            UV_TYPE_UL    | UV_TYPE_CONFIG, "should we optimize for low power")
-DEFVAR(uv_str16_t, logger_script,  "logger.cnf",  UV_TYPE_STR16 | UV_TYPE_CONFIG, "logger control script")
+DEFVAR(uv_str16_t, logger_script,  "",            UV_TYPE_STR16 | UV_TYPE_CONFIG, "logger control script")
 DEFVAR(uv_str16_t, logger_logfile, "logfile.log", UV_TYPE_STR16 | UV_TYPE_CONFIG, "logger output file")
+// number of samples to save. this is saved in RTC/R3
+DEFVAR(int,        logger_count,    1,            UV_TYPE_UL, "logger save count")
 // debugging
 DEFVAR(int, logger_beep_acq, 0, UV_TYPE_UL, "beep")
 DEFVAR(int, logger_beep_buf, 0, UV_TYPE_UL, "beep")
 
-static utime_t  log_usec      = 0;
-static char     log_usec_txt[32];
-static int      log_fmt       = 0;
+
+
+// for the data acquisition process
+static utime_t  log_usec            = 0;	// current sample period
+static char     log_usec_txt[32];		// sample rate in text format
+static int      log_fmt             = 0;	// log file format
 static void     (*log_output)(void) = 0;
-static uint32_t chkval        = 0; // the script needs these values
-static uint32_t logval        = 0; // output these values
-static proc_t   logproc_pid   = 0;
-static bool     logproc_close = 0;
-static bool     logproc_pause = 0;
-static bool     use_timer     = 0;
-static int      log_debug  = 0;
-static short    values[32];
+static proc_t   logproc_pid         = 0;
+static bool     logproc_close       = 0;
+static bool     logproc_pause       = 0;
+static bool     use_timer           = 0;	// are we using the timer or os scheduler
 
+uint32_t log_chkval                 = 0; 	// the script needs these values
+uint32_t log_logval                 = 0; 	// output these values
+short    log_values[32];			// adc values
 
-static char    datbuf[BUFSIZE];
-static int     logpos          = 0;
-static int     savepos         = 0;
-static int     logend          = 0;
+// for the disk write process
+static char    datbuf[BUFSIZE];			// output buffer
+static int     logpos          = 0;		// current end position
+static int     savepos         = 0;		// current start
 static proc_t  bufproc_pid     = 0;
 static bool    bufproc_close   = 0;
 static bool    bufproc_pause   = 0;
@@ -66,8 +73,10 @@ static bool    bufproc_rotate  = 0;
 static FILE   *logfd           = 0;
 static bool    overflow_warned = 0;
 
+extern u_char progmem[];
+
+
 static void logproc(void);
-static void log_script(void);
 static void logbuf_save(void);
 static void log_out_csv(void);
 static void log_out_txt(void);
@@ -75,9 +84,14 @@ static void log_out_json(void);
 static void log_out_raw(void);
 static void log_out_sln(void);
 static void log_out_alaw(void);
+static void log_out_xlaw(void);
 static void log_out_xml(void);
+static void log_out_bits(void);
 static void set_logger_format(void);
 static void logger_wakeup(void);
+
+extern void compile_script(void);
+extern void run_bytecode(void);
 
 static const char * const vars[] = {
     "AX", "AY", "AZ",
@@ -102,14 +116,14 @@ _unlock(void){
 
 //****************************************************************
 
-// acquire the needed values
+// acquire the needed log_values
 static inline void
 log_acquire(void){
-    uint32_t acqval = chkval | logval;
+    uint32_t acqval = log_chkval | log_logval;
     int8_t i;
 
     for(i=0; i<32; i++){
-        if( acqval & (1<<i) ) values[i] = getpini( i );
+        if( acqval & (1<<i) ) log_values[i] = getpini( i );
     }
 }
 
@@ -117,9 +131,17 @@ log_acquire(void){
 // log once + done
 static void
 log_one(void){
+
     log_acquire();
-    log_script();
-    if( log_output ) log_output();
+
+    if( progmem[0] ){
+        if( logger_count > 0 ) logger_count --;
+        run_bytecode();
+    }else{
+        // no script? always output
+        logger_count = 1;
+    }
+    if( log_output && logger_count > 0 ) log_output();
 }
 
 static void
@@ -223,8 +245,10 @@ logger_wakeup(void){
             // back to sleep
             goto_sleep( RTC->BKP2R - now );
         }
+        logger_count = RTC->BKP3R;
         log_one();
         logbuf_save();
+        RTC->BKP3R = logger_count;
     }
 
     // set alarm + power off
@@ -247,15 +271,15 @@ logger_config(void){
 
     logproc_pause = 1;
 
-    // RSN - load file
-
+    compile_script();
     set_logger_format();
+
     logproc_pause = 0;
 
     // are we good to go?
     if( ! logger_logfile[0] ) return 0;
     if( ! log_usec ) return 0;
-    if( ! logval )   return 0;
+    if( ! log_logval )   return 0;
 
     return 1;
 }
@@ -279,13 +303,9 @@ logproc(void){
 
         if(logger_beep_acq) play(4, "a7>>");
 
-        log_debug = 1;
         log_one();
-        log_debug = 2;
         if( use_timer ){
-            log_debug = 3;
             timer_wait();
-            log_debug = 4;
         }else{
             utime_t t1 = get_time();
             t0 += log_usec;
@@ -295,12 +315,10 @@ logproc(void){
             int l = (usec >> 32) + 1;
             usec &= 0xFFFFFFFF;
 
-            log_debug = 5;
             for(; l>0; l-- ){
                 usleep( usec );
                 if( logproc_close ) break;
             }
-            log_debug = 6;
         }
     }
 
@@ -326,7 +344,9 @@ set_logger_format(void){
     case LOGFMT_RAW:	log_output = log_out_raw;	break;
     case LOGFMT_SLN:	log_output = log_out_sln;	break;
     case LOGFMT_ALAW:	log_output = log_out_alaw;	break;
+    case LOGFMT_XLAW:	log_output = log_out_xlaw;	break;
     case LOGFMT_XML:	log_output = log_out_xml;	break;
+    case LOGFMT_BITS:	log_output = log_out_bits;	break;
 
     default:		log_output = log_out_raw; 	break;
     }
@@ -334,7 +354,7 @@ set_logger_format(void){
 
 DEFUN(logger_format, "set log file format")
 {
-    if( argc < 2 ) return error("logger_fmt csv|txt|json|raw|sln|alaw|xml\n");
+    if( argc < 2 ) return error("logger_fmt csv|txt|json|raw|sln|bits|alaw|xlaw|xml\n");
 
     if( !strcmp(argv[1], "raw") ){
         log_fmt    = LOGFMT_RAW;
@@ -350,8 +370,12 @@ DEFUN(logger_format, "set log file format")
         log_fmt = LOGFMT_SLN;
     }else if( !strcmp(argv[1], "alaw") ){
         log_fmt = LOGFMT_ALAW;
+    }else if( !strcmp(argv[1], "xlaw") ){
+        log_fmt = LOGFMT_BITS;
+    }else if( !strcmp(argv[1], "bits") ){
+        log_fmt = LOGFMT_XLAW;
     }else
-        return error("invalid format: csv|txt|json|raw|alaw|xml\n");
+        return error("invalid format: csv|txt|json|raw|sln|bits|alaw|xlaw|xml\n");
 
     return 0;
 }
@@ -397,7 +421,7 @@ DEFUN(logger_rate, "set logging rate")
 
 // +A0 - enable logging
 // -A0 - disable
-DEFUN(logger_values, "specify which values to log")
+DEFUN(logger_values, "specify which log_values to log")
 {
     short i, p, e;
 
@@ -419,9 +443,9 @@ DEFUN(logger_values, "specify which values to log")
         if( p == -1 )
             fprintf(STDERR, "invalid pin '%s'\n", argv[i]);
         else if( e )
-            logval |= 1<<p;
+            log_logval |= 1<<p;
         else
-            logval &= ~(1<<p);
+            log_logval &= ~(1<<p);
 
     }
     return 0;
@@ -431,7 +455,7 @@ DEFCONFUNC(logconf, f)
 {
     short i;
 
-    // logvals
+    // log_logvals
     // logusec
     // fmt
 
@@ -442,24 +466,21 @@ DEFCONFUNC(logconf, f)
     case LOGFMT_RAW:	fprintf(f, "logger_format raw\n");	break;
     case LOGFMT_SLN:	fprintf(f, "logger_format sln\n");	break;
     case LOGFMT_ALAW:	fprintf(f, "logger_format alaw\n");	break;
+    case LOGFMT_XLAW:	fprintf(f, "logger_format xlaw\n");	break;
     case LOGFMT_XML:	fprintf(f, "logger_format xml\n");	break;
+    case LOGFMT_BITS:	fprintf(f, "logger_format bits\n");	break;
     }
 
-    if( logval ){
-        fprintf(f, "logger_values");
+    if( log_logval ){
+        fprintf(f, "logger_log_values");
         for(i=0; i<32; i++)
-            if( logval & (1<<i) ) fprintf(f, " %s", getpinname(i));
+            if( log_logval & (1<<i) ) fprintf(f, " %s", getpinname(i));
         fprintf(f, "\n");
     }
 
     if( log_usec ){
         fprintf(f, "logger_rate %s\n", log_usec_txt);
     }
-
-}
-
-static void
-log_script(void){
 
 }
 
@@ -637,7 +658,7 @@ log_out_raw(void){
     short i;
 
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ) log_append( (char*)& values[i], 2 );
+        if( log_logval & (1<<i) ) log_append( (char*)& log_values[i], 2 );
     }
 }
 
@@ -645,17 +666,28 @@ static void log_out_sln(void){
     short i;
 
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ){
-            short v = values[i] - 4096;
+        if( log_logval & (1<<i) ){
+            short v = log_values[i] - 2048;
             log_append( (char*)&v, 2 );
         }
     }
 }
 
+static void
+log_out_bits(void){
+    short i, v=0;
+
+    for(i=0; i<32; i++){
+        if( log_logval & (1<<i) && log_values[i] ) v |= (1<<i);
+    }
+
+    log_append( (char*)& v, 2 );
+}
+
 // unsigned 12 bit compressed into 8 bit
 // alaw-like / 3e5m floating point encoding
 static inline int
-alaw_encode(int v){
+xlaw_encode(int v){
 
     if( v <= 0x1F ) return v;
     if( v > 0xFFF ) v = 0xFFF;
@@ -673,12 +705,50 @@ alaw_encode(int v){
 }
 
 static void
+log_out_xlaw(void){
+    short i;
+
+    for(i=0; i<32; i++){
+        if( log_logval & (1<<i) ){
+            int8_t v = xlaw_encode( log_values[i] );
+            log_append( (char*)&v, 1 );
+        }
+    }
+}
+
+static inline int
+alaw_encode(int v){
+    char sign = 0;
+
+    if( v<0 ){
+        sign = 0x80;
+        v = - v;
+    }
+
+    if( v <= 0x0F ) return (v | sign) ^ 0x55;
+    if( v > 0x7FF ) v = 0x7FF;
+
+    int e = 1;
+    while( v <= 0x1F ){
+        v >>= 1;
+        e ++;
+    }
+
+    v &= 0x0F;	// discard redundant 1-bit
+    v |= e<<4;
+    v |= sign;
+    v ^= 0x55;
+
+    return v;
+}
+
+static void
 log_out_alaw(void){
     short i;
 
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ){
-            int8_t v = alaw_encode( values[i] );
+        if( log_logval & (1<<i) ){
+            int8_t v = alaw_encode( log_values[i] - 2048 );
             log_append( (char*)&v, 1 );
         }
     }
@@ -696,8 +766,8 @@ log_out_csv(void){
 
     fncprintf(fappend, 0, "%#T", get_hrtime());
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ){
-            fncprintf(fappend, 0, ", %d", values[i]);
+        if( log_logval & (1<<i) ){
+            fncprintf(fappend, 0, ", %d", log_values[i]);
         }
     }
     log_append("\n", 1);
@@ -709,8 +779,8 @@ log_out_json(void){
 
     fncprintf(fappend, 0, "{\"time\": \"%#T\"", get_hrtime());
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ){
-            fncprintf(fappend, 0, ", \"%s\": %d", getpinname(i), values[i]);
+        if( log_logval & (1<<i) ){
+            fncprintf(fappend, 0, ", \"%s\": %d", getpinname(i), log_values[i]);
         }
     }
     log_append("}\n", 2);
@@ -722,8 +792,8 @@ log_out_txt(void){
 
     fncprintf(fappend, 0, "time:\t%#T\n", get_hrtime());
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ){
-            fncprintf(fappend, 0, "%s:\t%d\n", getpinname(i), values[i]);
+        if( log_logval & (1<<i) ){
+            fncprintf(fappend, 0, "%s:\t%d\n", getpinname(i), log_values[i]);
         }
     }
     log_append("\n", 1);
@@ -740,8 +810,8 @@ log_out_xml(void){
               "  <timestamp>%#T</timestamp>\n  <dataset>\n", get_hrtime());
 
     for(i=0; i<32; i++){
-        if( logval & (1<<i) ){
-            fncprintf(fappend, 0, "    <datapoint><pin>%s</pin><value>%d</value></datapoint>\n", getpinname(i), values[i]);
+        if( log_logval & (1<<i) ){
+            fncprintf(fappend, 0, "    <datapoint><pin>%s</pin><value>%d</value></datapoint>\n", getpinname(i), log_values[i]);
         }
     }
     fncprintf(fappend, 0, "  </dataset>\n</acquisition>\n");
@@ -750,38 +820,9 @@ log_out_xml(void){
 #ifdef KTESTING
 DEFUN(logdump, "")
 {
-    printf("logpos %d, savepos %d, dbg %d\n", logpos, savepos, log_debug);
+    printf("logpos %d, savepos %d\n", logpos, savepos);
     return 0;
 }
 #endif
 
-
-/****************************************************************/
-
-/*
-  config script:
-
-  if A0 > 123 & B4 | A7 < 12 {
-  log #	- 0 = don't log, 1 = log, 2 = log this + next sample, ... (store in rtc reg)
-
-  }
-
-  if A2 & A3 > 100 {
-      setpin A6 127
-  }
-
-  if A5 {
-      rm file.csv
-  }
-
-  if expr then
-    x x x
-  else
-    y y y
-  endif
-
-  [ABCDE][0-9]	- pins
-  [AGM][XYZ]	- imu
-  UV		- user variable (RTC reg)
-*/
 
