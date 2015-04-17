@@ -472,7 +472,7 @@ DEFCONFUNC(logconf, f)
     }
 
     if( log_logval ){
-        fprintf(f, "logger_log_values");
+        fprintf(f, "logger_values");
         for(i=0; i<32; i++)
             if( log_logval & (1<<i) ) fprintf(f, " %s", getpinname(i));
         fprintf(f, "\n");
