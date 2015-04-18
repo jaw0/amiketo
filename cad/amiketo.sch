@@ -1218,6 +1218,39 @@ DOWN</text>
 <text x="-1.5" y="2" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-1.5" y="-3" size="1" layer="27" ratio="10">&gt;VALUE</text>
 </package>
+<package name="MICROSD/EJECTOR">
+<wire x1="5.96" y1="-7.6" x2="6.96" y2="-7.6" width="0.127" layer="21"/>
+<wire x1="6.96" y1="-7.6" x2="6.96" y2="7.5" width="0.127" layer="21"/>
+<wire x1="6.96" y1="7.5" x2="-7" y2="7.5" width="0.127" layer="21"/>
+<wire x1="-7" y1="7.5" x2="-7" y2="-6.9" width="0.127" layer="21"/>
+<wire x1="-7" y1="-6.9" x2="-6" y2="-6.9" width="0.127" layer="21"/>
+<wire x1="-6" y1="-6.9" x2="-5.3" y2="-6" width="0.127" layer="21" curve="-90"/>
+<wire x1="-5.3" y1="-6" x2="4.36" y2="-6" width="0.127" layer="21"/>
+<wire x1="4.36" y1="-6" x2="5.96" y2="-7.6" width="0.127" layer="21" curve="-90"/>
+<wire x1="-6.6" y1="-7.12" x2="-5.4" y2="-8.36" width="0.127" layer="51" curve="90"/>
+<wire x1="-5.4" y1="-8.36" x2="3.76" y2="-8.36" width="0.127" layer="51"/>
+<wire x1="3.76" y1="-8.32" x2="5.06" y2="-7.26" width="0.127" layer="51" curve="90"/>
+<wire x1="-6.6" y1="-8.02" x2="-5.4" y2="-9.26" width="0.127" layer="51" curve="90"/>
+<wire x1="-5.4" y1="-9.26" x2="3.76" y2="-9.26" width="0.127" layer="51"/>
+<wire x1="3.76" y1="-9.22" x2="5.06" y2="-8.16" width="0.127" layer="51" curve="90"/>
+<wire x1="-6.5" y1="-11.32" x2="-5.3" y2="-12.56" width="0.127" layer="51" curve="90"/>
+<wire x1="-5.3" y1="-12.56" x2="3.86" y2="-12.56" width="0.127" layer="51"/>
+<wire x1="3.86" y1="-12.52" x2="5.16" y2="-11.46" width="0.127" layer="51" curve="90"/>
+<smd name="SHELL2" x="-6.6" y="-6" dx="1.6" dy="2" layer="1"/>
+<smd name="SHELL3" x="6.56" y="-6.9" dx="1.6" dy="2" layer="1"/>
+<smd name="CD1" x="-5" y="7.1" dx="1.6" dy="1.8" layer="1" rot="R90"/>
+<smd name="SHELL1" x="0.96" y="7.1" dx="1.6" dy="1.8" layer="1" rot="R90"/>
+<smd name="8" x="-5.7" y="-3.1" dx="0.8" dy="1.5" layer="1"/>
+<smd name="7" x="-4.6" y="-3.1" dx="0.8" dy="1.5" layer="1"/>
+<smd name="6" x="-3.5" y="-3.5" dx="0.8" dy="1.5" layer="1"/>
+<smd name="5" x="-2.4" y="-3.1" dx="0.8" dy="1.5" layer="1"/>
+<smd name="4" x="-1.3" y="-3.5" dx="0.8" dy="1.5" layer="1"/>
+<smd name="3" x="-0.2" y="-3.1" dx="0.8" dy="1.5" layer="1"/>
+<smd name="2" x="0.86" y="-2.7" dx="0.8" dy="1.5" layer="1"/>
+<smd name="1" x="1.96" y="-3.1" dx="0.8" dy="1.5" layer="1"/>
+<text x="-3.3" y="3.4" size="1.27" layer="25">&gt;NAME</text>
+<circle x="3" y="-4" radius="0.2" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="STM32F411/48">
@@ -2208,6 +2241,23 @@ LOGO</text>
 <connect gate="G$1" pin="GND" pad="6"/>
 <connect gate="G$1" pin="SW1" pad="SW1"/>
 <connect gate="G$1" pin="SW2" pad="SW2"/>
+<connect gate="G$1" pin="VCC" pad="4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="-EJECT" package="MICROSD/EJECTOR">
+<connects>
+<connect gate="G$1" pin="CLK" pad="5"/>
+<connect gate="G$1" pin="CMD" pad="3"/>
+<connect gate="G$1" pin="DAT0" pad="7"/>
+<connect gate="G$1" pin="DAT1" pad="8"/>
+<connect gate="G$1" pin="DAT2" pad="1"/>
+<connect gate="G$1" pin="DAT3" pad="2"/>
+<connect gate="G$1" pin="GND" pad="6"/>
+<connect gate="G$1" pin="SW1" pad="CD1"/>
+<connect gate="G$1" pin="SW2" pad="SHELL1"/>
 <connect gate="G$1" pin="VCC" pad="4"/>
 </connects>
 <technologies>
@@ -6769,11 +6819,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="VCC3" library="jaw" deviceset="PWR-VCC" device=""/>
 <part name="GND10" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="Q1" library="jaw" deviceset="MOSFET" device="SOT-23" value="IRLML6344TRPBF"/>
-<part name="CN1" library="jaw" deviceset="MICROSD" device="PLAIN"/>
+<part name="CN1" library="jaw" deviceset="MICROSD" device="-EJECT" value="MICROSD-EJECT"/>
 <part name="GND22" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="C16" library="jaw" deviceset="C" device="0603" value="4.7u"/>
 <part name="GND23" library="jaw" deviceset="PWR-GND" device=""/>
-<part name="R18" library="jaw" deviceset="R" device="0603" value="100k"/>
 <part name="GND13" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="U$2" library="adafruit" deviceset="FIDUCIAL" device=""/>
 <part name="U$3" library="adafruit" deviceset="FIDUCIAL" device=""/>
@@ -6881,8 +6930,7 @@ thru dpy + sd card while off</text>
 <instance part="GND22" gate="G$1" x="177.8" y="60.96"/>
 <instance part="C16" gate="G$1" x="220.98" y="73.66"/>
 <instance part="GND23" gate="G$1" x="220.98" y="68.58"/>
-<instance part="R18" gate="G$1" x="228.6" y="58.42"/>
-<instance part="GND13" gate="G$1" x="233.68" y="55.88"/>
+<instance part="GND13" gate="G$1" x="223.52" y="55.88"/>
 <instance part="U$2" gate="G$1" x="269.24" y="40.64"/>
 <instance part="U$3" gate="G$1" x="261.62" y="40.64"/>
 <instance part="C14" gate="G$1" x="132.08" y="119.38"/>
@@ -7057,10 +7105,6 @@ thru dpy + sd card while off</text>
 <junction x="220.98" y="71.12"/>
 </segment>
 <segment>
-<pinref part="R18" gate="G$1" pin="P$2"/>
-<pinref part="GND13" gate="G$1" pin="GND"/>
-</segment>
-<segment>
 <pinref part="GND9" gate="G$1" pin="GND"/>
 <pinref part="LED1" gate="G$1" pin="C"/>
 <wire x1="43.18" y1="121.92" x2="43.18" y2="116.84" width="0.1524" layer="91"/>
@@ -7133,6 +7177,11 @@ thru dpy + sd card while off</text>
 <pinref part="U2" gate="G$1" pin="SA0"/>
 <wire x1="83.82" y1="109.22" x2="78.74" y2="109.22" width="0.1524" layer="91"/>
 <label x="73.66" y="109.22" size="1.27" layer="95"/>
+</segment>
+<segment>
+<pinref part="CN1" gate="G$1" pin="SW2"/>
+<pinref part="GND13" gate="G$1" pin="GND"/>
+<wire x1="218.44" y1="58.42" x2="223.52" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -7560,19 +7609,14 @@ thru dpy + sd card while off</text>
 </net>
 <net name="IOCARD" class="0">
 <segment>
-<pinref part="CN1" gate="G$1" pin="SW2"/>
-<pinref part="R18" gate="G$1" pin="P$1"/>
-<wire x1="218.44" y1="58.42" x2="220.98" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="220.98" y1="58.42" x2="223.52" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="220.98" y1="58.42" x2="220.98" y2="63.5" width="0.1524" layer="91"/>
-<junction x="220.98" y="58.42"/>
-<wire x1="220.98" y1="63.5" x2="233.68" y2="63.5" width="0.1524" layer="91"/>
-<label x="228.6" y="63.5" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="U1" gate="G$1" pin="PA15"/>
 <wire x1="193.04" y1="124.46" x2="198.12" y2="124.46" width="0.1524" layer="91"/>
 <label x="198.12" y="124.46" size="1.27" layer="95"/>
+</segment>
+<segment>
+<pinref part="CN1" gate="G$1" pin="SW1"/>
+<wire x1="198.12" y1="58.42" x2="195.58" y2="58.42" width="0.1524" layer="91"/>
+<label x="187.96" y="58.42" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="N$11" class="0">
@@ -7910,11 +7954,7 @@ thru dpy + sd card while off</text>
 <segment>
 <pinref part="CN1" gate="G$1" pin="VCC"/>
 <wire x1="177.8" y1="66.04" x2="195.58" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="CN1" gate="G$1" pin="SW1"/>
 <wire x1="195.58" y1="66.04" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="198.12" y1="58.42" x2="195.58" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="58.42" x2="195.58" y2="66.04" width="0.1524" layer="91"/>
-<junction x="195.58" y="66.04"/>
 <pinref part="VCCE2" gate="G$1" pin="VCCE"/>
 </segment>
 <segment>
