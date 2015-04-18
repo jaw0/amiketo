@@ -924,9 +924,10 @@ DOWN</text>
 <smd name="5" x="0.75" y="0.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
 <wire x1="-1.1" y1="1" x2="-1.1" y2="-0.7" width="0.1" layer="21"/>
 <circle x="-1.1" y="-1" radius="0.2" width="0.1" layer="21"/>
-<smd name="PAD" x="0" y="0" dx="1.2" dy="0.6" layer="1"/>
+<smd name="PAD" x="0" y="0" dx="1.2" dy="0.6" layer="1" cream="no"/>
 <text x="-1.2" y="1.6" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-1.2" y="-2.6" size="1" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="-0.4" y1="-0.2" x2="0.4" y2="0.2" layer="31"/>
 </package>
 <package name="HEADER-22X1-PTH">
 <wire x1="19.685" y1="1.27" x2="20.955" y2="1.27" width="0.1524" layer="21"/>
