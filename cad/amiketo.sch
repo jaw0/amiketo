@@ -203,11 +203,15 @@
 <text x="-2.4" y="1.6" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-2.6" y="-2.5" size="1" layer="27" ratio="10">&gt;VALUE</text>
 <smd name="PAD" x="0" y="0" dx="5" dy="5" layer="1" cream="no"/>
-<rectangle x1="-2" y1="1" x2="-1" y2="2" layer="31"/>
-<rectangle x1="1" y1="1" x2="2" y2="2" layer="31"/>
-<rectangle x1="-2" y1="-2" x2="-1" y2="-1" layer="31"/>
-<rectangle x1="1" y1="-2" x2="2" y2="-1" layer="31"/>
+<rectangle x1="-2" y1="-0.5" x2="-1" y2="0.5" layer="31"/>
+<rectangle x1="-0.5" y1="1" x2="0.5" y2="2" layer="31"/>
+<rectangle x1="-0.5" y1="-2" x2="0.5" y2="-1" layer="31"/>
+<rectangle x1="1" y1="-0.5" x2="2" y2="0.5" layer="31"/>
 <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" layer="31"/>
+<rectangle x1="-2" y1="-2" x2="-1.5" y2="-1.5" layer="31"/>
+<rectangle x1="1.5" y1="-2" x2="2" y2="-1.5" layer="31"/>
+<rectangle x1="-2" y1="1.5" x2="-1.5" y2="2" layer="31"/>
+<rectangle x1="1.5" y1="1.5" x2="2" y2="2" layer="31"/>
 </package>
 <package name="SOT-23-5">
 <wire x1="1.522" y1="0.81" x2="1.522" y2="-0.81" width="0.1524" layer="21"/>
@@ -783,18 +787,18 @@ DOWN</text>
 <text x="-2.5" y="6.54" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-2.5" y="1" size="1" layer="27" ratio="10">&gt;VALUE</text>
 </package>
-<package name="M127-5X1">
-<smd name="P$1" x="-2.54" y="0" dx="2.032" dy="0.762" layer="1" rot="R90"/>
-<smd name="P$2" x="-1.27" y="0" dx="2.032" dy="0.762" layer="1" rot="R90"/>
-<smd name="P$3" x="0" y="0" dx="2.032" dy="0.762" layer="1" rot="R90"/>
-<smd name="P$4" x="1.27" y="0" dx="2.032" dy="0.762" layer="1" rot="R90"/>
+<package name="HEADER-5X1-SMD127-NOCR">
+<smd name="P$1" x="-2.54" y="0" dx="2.032" dy="0.762" layer="1" rot="R90" cream="no"/>
+<smd name="P$2" x="-1.27" y="0" dx="2.032" dy="0.762" layer="1" rot="R90" cream="no"/>
+<smd name="P$3" x="0" y="0" dx="2.032" dy="0.762" layer="1" rot="R90" cream="no"/>
+<smd name="P$4" x="1.27" y="0" dx="2.032" dy="0.762" layer="1" rot="R90" cream="no"/>
 <wire x1="-2.47" y1="1.27" x2="3.372" y2="1.27" width="0.127" layer="21"/>
 <wire x1="3.372" y1="1.27" x2="3.372" y2="-1.27" width="0.127" layer="21"/>
 <wire x1="3.372" y1="-1.27" x2="-2.216" y2="-1.27" width="0.127" layer="21"/>
 <wire x1="-2.216" y1="-1.27" x2="-3.486" y2="0" width="0.127" layer="21"/>
 <wire x1="-3.486" y1="0" x2="-3.486" y2="1.27" width="0.127" layer="21"/>
 <wire x1="-3.486" y1="1.27" x2="-2.47" y2="1.27" width="0.127" layer="21"/>
-<smd name="P$5" x="2.54" y="0" dx="2.032" dy="0.762" layer="1" rot="R90"/>
+<smd name="P$5" x="2.54" y="0" dx="2.032" dy="0.762" layer="1" rot="R90" cream="no"/>
 </package>
 <package name="LGA20P">
 <smd name="3" x="0" y="-1.9" dx="0.8" dy="0.3" layer="1" rot="R90"/>
@@ -825,7 +829,7 @@ DOWN</text>
 <circle x="-2" y="-2" radius="0.4" width="0.1" layer="21"/>
 <text x="-2" y="3" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-2" y="-4" size="1" layer="27" ratio="10">&gt;VALUE</text>
-<rectangle x1="-0.2" y1="-0.2" x2="0.2" y2="0.2" layer="31"/>
+<rectangle x1="-0.3" y1="-0.3" x2="0.3" y2="0.3" layer="31"/>
 <rectangle x1="-0.9" y1="0.5" x2="-0.5" y2="0.9" layer="31"/>
 <rectangle x1="0.5" y1="0.5" x2="0.9" y2="0.9" layer="31"/>
 <rectangle x1="0.5" y1="-0.9" x2="0.9" y2="-0.5" layer="31"/>
@@ -893,11 +897,17 @@ DOWN</text>
 <smd name="MINUS" x="0" y="0" dx="9" dy="9" layer="1" roundness="100"/>
 <smd name="PLUS1" x="-7.5" y="0" dx="2" dy="5" layer="1"/>
 <smd name="PLUS2" x="7.5" y="0" dx="2" dy="5" layer="1"/>
-<circle x="0" y="0" radius="6.5" width="0.127" layer="21"/>
 <wire x1="-10" y1="5" x2="-10" y2="-5" width="0.1" layer="21"/>
-<wire x1="-10" y1="-5" x2="10" y2="-5" width="0.1" layer="21"/>
+<wire x1="-10" y1="-5" x2="-4" y2="-5" width="0.1" layer="21"/>
+<wire x1="-4" y1="-5" x2="4" y2="-5" width="0.35" layer="21"/>
+<wire x1="4" y1="-5" x2="10" y2="-5" width="0.1" layer="21"/>
 <wire x1="10" y1="-5" x2="10" y2="5" width="0.1" layer="21"/>
-<wire x1="10" y1="5" x2="-10" y2="5" width="0.1" layer="21"/>
+<wire x1="10" y1="5" x2="-10" y2="5" width="0.1" layer="21" style="shortdash"/>
+<wire x1="-6.4" y1="0" x2="6.4" y2="0" width="0.1" layer="21" curve="180.881404"/>
+<wire x1="-6.4" y1="0" x2="-4" y2="-5" width="0.35" layer="21" curve="51.892423"/>
+<wire x1="6.4" y1="0" x2="4" y2="-5" width="0.35" layer="21" curve="-53.130102"/>
+<wire x1="-6.5" y1="3" x2="0" y2="4.5" width="0.1" layer="21" style="shortdash" curve="-180"/>
+<wire x1="0" y1="4.5" x2="6.5" y2="3" width="0.1" layer="21" style="shortdash" curve="-180"/>
 </package>
 <package name="RESONATOR-CSTCE">
 <smd name="2" x="0" y="0" dx="0.5" dy="2" layer="1"/>
@@ -1754,6 +1764,14 @@ LOGO</text>
 <pin name="ADC3" x="-15.24" y="-7.62" length="middle"/>
 <pin name="VDDIO" x="2.54" y="15.24" length="middle" rot="R270"/>
 </symbol>
+<symbol name="FUSE">
+<wire x1="-2.54" y1="0" x2="0" y2="0" width="0.254" layer="94" curve="-126.869898"/>
+<wire x1="0" y1="0" x2="2.54" y2="0" width="0.254" layer="94" curve="180"/>
+<text x="-3.81" y="-3.81" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-3.81" y="2.54" size="1.778" layer="95">&gt;NAME</text>
+<pin name="1" x="-5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
+<pin name="2" x="5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="STM32F411/48" prefix="U">
@@ -2359,7 +2377,7 @@ LOGO</text>
 <gate name="G$1" symbol="HEADER-5X1" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="M127-5X1">
+<device name="" package="HEADER-5X1-SMD127-NOCR">
 <connects>
 <connect gate="G$1" pin="1" pad="P$1"/>
 <connect gate="G$1" pin="2" pad="P$2"/>
@@ -2609,6 +2627,22 @@ LOGO</text>
 <connect gate="G$1" pin="SDA" pad="6"/>
 <connect gate="G$1" pin="VCC" pad="14"/>
 <connect gate="G$1" pin="VDDIO" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="FUSE" prefix="F">
+<gates>
+<gate name="G$1" symbol="FUSE" x="-2.54" y="0"/>
+</gates>
+<devices>
+<device name="" package="SMD1206">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -2894,42 +2928,6 @@ JST PH 2-pin thru-home side entry</description>
 <text x="-2.914" y="-6.096" size="1.4224" layer="21" ratio="12">+</text>
 <text x="2.271" y="-6.096" size="1.4224" layer="21" ratio="12">-</text>
 </package>
-<package name="1812">
-<description>Multilayer SMD</description>
-<wire x1="-2.3" y1="0" x2="2.4" y2="0" width="0.127" layer="51"/>
-<wire x1="-2.8004" y1="1.7113" x2="2.8004" y2="1.7113" width="0.127" layer="21"/>
-<wire x1="2.8004" y1="1.7113" x2="2.8004" y2="-1.7113" width="0.127" layer="51"/>
-<wire x1="2.8004" y1="-1.7113" x2="-2.8004" y2="-1.7113" width="0.127" layer="21"/>
-<wire x1="-2.8004" y1="-1.7113" x2="-2.8004" y2="1.7113" width="0.127" layer="51"/>
-<wire x1="-1.7" y1="0" x2="1.7" y2="0" width="0.127" layer="51"/>
-<wire x1="-1.6" y1="0.8" x2="1.6" y2="0.8" width="0.07" layer="21"/>
-<wire x1="1.6" y1="0.8" x2="1.6" y2="-0.8" width="0.07" layer="51"/>
-<wire x1="1.6" y1="-0.8" x2="-1.6" y2="-0.8" width="0.07" layer="21"/>
-<wire x1="-1.6" y1="-0.8" x2="-1.6" y2="0.8" width="0.07" layer="51"/>
-<smd name="1" x="-2.046" y="0" dx="2.286" dy="2.794" layer="1"/>
-<smd name="2" x="2.046" y="0" dx="2.286" dy="2.794" layer="1"/>
-<text x="-1.8575" y="1.905" size="0.6096" layer="27">&gt;VALUE</text>
-<text x="-1.8575" y="-2.54" size="0.6096" layer="25">&gt;NAME</text>
-<rectangle x1="-0.9" y1="-0.3" x2="0.9" y2="0.3" layer="21"/>
-<rectangle x1="-0.6" y1="-0.3" x2="0.5" y2="0.3" layer="21"/>
-</package>
-<package name="R1206">
-<description>&lt;b&gt;RESISTOR&lt;/b&gt;&lt;p&gt;
-chip</description>
-<wire x1="0.9525" y1="-0.8128" x2="-0.9652" y2="-0.8128" width="0.1524" layer="51"/>
-<wire x1="0.9525" y1="0.8128" x2="-0.9652" y2="0.8128" width="0.1524" layer="51"/>
-<wire x1="-2.473" y1="0.983" x2="2.473" y2="0.983" width="0.0508" layer="39"/>
-<wire x1="2.473" y1="0.983" x2="2.473" y2="-0.983" width="0.0508" layer="39"/>
-<wire x1="2.473" y1="-0.983" x2="-2.473" y2="-0.983" width="0.0508" layer="39"/>
-<wire x1="-2.473" y1="-0.983" x2="-2.473" y2="0.983" width="0.0508" layer="39"/>
-<smd name="2" x="1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
-<smd name="1" x="-1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
-<text x="-1.397" y="1.143" size="1.27" layer="25">&gt;NAME</text>
-<text x="-1.397" y="-2.413" size="1.27" layer="27">&gt;VALUE</text>
-<rectangle x1="-1.6891" y1="-0.8763" x2="-0.9525" y2="0.8763" layer="51"/>
-<rectangle x1="0.9525" y1="-0.8763" x2="1.6891" y2="0.8763" layer="51"/>
-<rectangle x1="-0.3" y1="-0.7" x2="0.3" y2="0.7" layer="35"/>
-</package>
 <package name="FIDUCIAL_1MM">
 <smd name="1" x="0" y="0" dx="1" dy="1" layer="1" roundness="100" stop="no" cream="no"/>
 <polygon width="0.127" layer="29">
@@ -2956,14 +2954,6 @@ chip</description>
 <text x="-6.35" y="-5.08" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="1" x="-2.54" y="2.54" visible="pad" length="short" direction="pas" function="dot"/>
 <pin name="2" x="-2.54" y="0" visible="pad" length="short" direction="pas" function="dot"/>
-</symbol>
-<symbol name="FUSE">
-<wire x1="-2.54" y1="2.54" x2="0" y2="2.54" width="0.254" layer="94" curve="-126.869898"/>
-<wire x1="0" y1="2.54" x2="2.54" y2="2.54" width="0.254" layer="94" curve="180"/>
-<text x="-3.81" y="-1.27" size="1.778" layer="96">&gt;VALUE</text>
-<text x="-3.81" y="5.08" size="1.778" layer="95">&gt;NAME</text>
-<pin name="1" x="-5.08" y="2.54" visible="off" length="short" direction="pas" swaplevel="1"/>
-<pin name="2" x="5.08" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
 </symbol>
 <symbol name="DOT">
 <circle x="0" y="0" radius="2.54" width="0.254" layer="94"/>
@@ -3014,32 +3004,6 @@ chip</description>
 <connects>
 <connect gate="G$1" pin="1" pad="2"/>
 <connect gate="G$1" pin="2" pad="1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="PTCFUSE" prefix="F" uservalue="yes">
-<description>PTC fuses, resettable thermistors</description>
-<gates>
-<gate name="G$1" symbol="FUSE" x="0" y="2.54"/>
-</gates>
-<devices>
-<device name="-1812" package="1812">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="-1206" package="R1206">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6836,7 +6800,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="U4" library="jaw" deviceset="MCP1824" device=""/>
 <part name="USB1" library="dp_devices" deviceset="CON-USB-F" device="-MICRO-B"/>
 <part name="CN3" library="adafruit" deviceset="JST_2PIN" device="-SMT-RA"/>
-<part name="F1" library="adafruit" deviceset="PTCFUSE" device="-1206"/>
+<part name="F1" library="jaw" deviceset="FUSE" device=""/>
 <part name="C1" library="jaw" deviceset="C" device="0603" value="10u"/>
 <part name="C2" library="jaw" deviceset="C" device="0603" value="1u"/>
 <part name="C3" library="jaw" deviceset="C" device="0603" value="10u"/>
@@ -6884,7 +6848,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="LED1" library="jaw" deviceset="LED" device="" value="white"/>
 <part name="R8" library="jaw" deviceset="R" device="0603" value="470"/>
 <part name="GND9" library="jaw" deviceset="PWR-GND" device=""/>
-<part name="NOISY1" library="jaw" deviceset="PUI-5040" device=""/>
+<part name="SPKR1" library="jaw" deviceset="PUI-5040" device=""/>
 <part name="D1" library="jaw" deviceset="DIODE" device="SOD-323"/>
 <part name="VCC3" library="jaw" deviceset="PWR-VCC" device=""/>
 <part name="GND10" library="jaw" deviceset="PWR-GND" device=""/>
@@ -6923,7 +6887,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="VCCE2" library="jaw" deviceset="PWR-VCCE" device=""/>
 <part name="VCCE3" library="jaw" deviceset="PWR-VCCE" device=""/>
 <part name="VCCE4" library="jaw" deviceset="PWR-VCCE" device=""/>
-<part name="C6" library="jaw" deviceset="C" device="0603" value="1u"/>
+<part name="C6" library="jaw" deviceset="C" device="0603" value=".1u"/>
 <part name="C7" library="jaw" deviceset="C" device="0603" value="1u"/>
 <part name="U2" library="jaw" deviceset="LIS3DH" device=""/>
 <part name="JP1" library="jaw" deviceset="HEADER-22X1" device="-PTH"/>
@@ -6945,7 +6909,7 @@ thru dpy + sd card while off</text>
 <instance part="U4" gate="G$1" x="109.22" y="55.88"/>
 <instance part="USB1" gate="USB" x="25.4" y="180.34"/>
 <instance part="CN3" gate="G$1" x="73.66" y="30.48" rot="R180"/>
-<instance part="F1" gate="G$1" x="50.8" y="180.34"/>
+<instance part="F1" gate="G$1" x="50.8" y="182.88"/>
 <instance part="C1" gate="G$1" x="88.9" y="53.34"/>
 <instance part="C2" gate="G$1" x="139.7" y="53.34"/>
 <instance part="C3" gate="G$1" x="10.16" y="63.5"/>
@@ -6994,7 +6958,7 @@ thru dpy + sd card while off</text>
 <instance part="LED1" gate="G$1" x="43.18" y="127" rot="R270"/>
 <instance part="R8" gate="G$1" x="43.18" y="139.7" rot="R270"/>
 <instance part="GND9" gate="G$1" x="43.18" y="114.3"/>
-<instance part="NOISY1" gate="G$1" x="30.48" y="142.24"/>
+<instance part="SPKR1" gate="G$1" x="30.48" y="142.24"/>
 <instance part="D1" gate="G$1" x="20.32" y="142.24" rot="R90"/>
 <instance part="VCC3" gate="G$1" x="27.94" y="157.48"/>
 <instance part="GND10" gate="G$1" x="27.94" y="114.3"/>
@@ -7004,8 +6968,8 @@ thru dpy + sd card while off</text>
 <instance part="C16" gate="G$1" x="220.98" y="73.66"/>
 <instance part="GND23" gate="G$1" x="220.98" y="68.58"/>
 <instance part="GND13" gate="G$1" x="223.52" y="55.88"/>
-<instance part="U$2" gate="G$1" x="269.24" y="40.64"/>
-<instance part="U$3" gate="G$1" x="261.62" y="40.64"/>
+<instance part="U$2" gate="G$1" x="271.78" y="25.4"/>
+<instance part="U$3" gate="G$1" x="271.78" y="33.02"/>
 <instance part="C14" gate="G$1" x="132.08" y="119.38"/>
 <instance part="GND12" gate="G$1" x="99.06" y="81.28"/>
 <instance part="GND14" gate="G$1" x="132.08" y="86.36"/>
@@ -7018,12 +6982,12 @@ thru dpy + sd card while off</text>
 <instance part="R1" gate="G$1" x="58.42" y="45.72"/>
 <instance part="GND11" gate="G$1" x="7.62" y="50.8"/>
 <instance part="GND21" gate="G$1" x="68.58" y="43.18"/>
-<instance part="U$4" gate="G$1" x="251.46" y="40.64"/>
+<instance part="U$4" gate="G$1" x="248.92" y="25.4"/>
 <instance part="B1" gate="G$1" x="226.06" y="170.18"/>
 <instance part="X1" gate="G$1" x="144.78" y="160.02"/>
 <instance part="U5" gate="G$1" x="127" y="25.4"/>
-<instance part="LOGO1" gate="G$1" x="203.2" y="45.72"/>
-<instance part="U$1" gate="G$1" x="238.76" y="40.64"/>
+<instance part="LOGO1" gate="G$1" x="261.62" y="27.94"/>
+<instance part="U$1" gate="G$1" x="236.22" y="25.4"/>
 <instance part="R2" gate="G$1" x="17.78" y="121.92"/>
 <instance part="CN6" gate="A" x="251.46" y="71.12"/>
 <instance part="GND24" gate="G$1" x="264.16" y="66.04"/>
@@ -7305,7 +7269,7 @@ thru dpy + sd card while off</text>
 <wire x1="203.2" y1="167.64" x2="203.2" y2="170.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="NOISY1" gate="G$1" pin="P1"/>
+<pinref part="SPKR1" gate="G$1" pin="P1"/>
 <pinref part="VCC3" gate="G$1" pin="VCC"/>
 <wire x1="27.94" y1="154.94" x2="27.94" y2="152.4" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="C"/>
@@ -7586,7 +7550,7 @@ thru dpy + sd card while off</text>
 <net name="N$14" class="0">
 <segment>
 <pinref part="Q1" gate="G$1" pin="D"/>
-<pinref part="NOISY1" gate="G$1" pin="P2"/>
+<pinref part="SPKR1" gate="G$1" pin="P2"/>
 <wire x1="27.94" y1="129.54" x2="27.94" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="27.94" y1="132.08" x2="20.32" y2="132.08" width="0.1524" layer="91"/>
 <junction x="27.94" y="132.08"/>
