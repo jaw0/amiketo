@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -195,11 +195,11 @@
 <smd name="P22" x="3.5" y="1.75" dx="0.3" dy="0.8" layer="1" rot="R90"/>
 <smd name="P23" x="3.5" y="2.25" dx="0.3" dy="0.8" layer="1" rot="R90"/>
 <smd name="P24" x="3.5" y="2.75" dx="0.3" dy="0.8" layer="1" rot="R90"/>
-<wire x1="-3.1" y1="-3.8" x2="3.8" y2="-3.8" width="0.1" layer="21"/>
+<wire x1="-3.3" y1="-3.8" x2="3.8" y2="-3.8" width="0.1" layer="21"/>
 <wire x1="3.8" y1="-3.8" x2="3.8" y2="3.8" width="0.1" layer="21"/>
 <wire x1="3.8" y1="3.8" x2="-3.8" y2="3.8" width="0.1" layer="21"/>
-<wire x1="-3.8" y1="3.8" x2="-3.8" y2="-3.1" width="0.1" layer="21"/>
-<circle x="-3.5" y="-3.5" radius="0.5" width="0.1" layer="21"/>
+<wire x1="-3.8" y1="3.8" x2="-3.8" y2="-3.3" width="0.1" layer="21"/>
+<circle x="-3.8" y="-3.8" radius="0.5" width="0.1" layer="21"/>
 <text x="-2.4" y="1.6" size="1" layer="25" ratio="10">&gt;NAME</text>
 <text x="-2.6" y="-2.5" size="1" layer="27" ratio="10">&gt;VALUE</text>
 <smd name="PAD" x="0" y="0" dx="5" dy="5" layer="1" cream="no"/>
@@ -6924,6 +6924,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="GND4" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="VCC6" library="jaw" deviceset="PWR-VCC" device=""/>
 <part name="D2" library="jaw" deviceset="DIODE" device="-0805" value="1A"/>
+<part name="R3" library="jaw" deviceset="R" device="0603" value="10k"/>
+<part name="R9" library="jaw" deviceset="R" device="0603" value="10k"/>
+<part name="VCC7" library="jaw" deviceset="PWR-VCC" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -7034,6 +7037,9 @@ thru dpy + sd card while off</text>
 <instance part="GND4" gate="G$1" x="193.04" y="187.96"/>
 <instance part="VCC6" gate="G$1" x="193.04" y="200.66"/>
 <instance part="D2" gate="G$1" x="58.42" y="182.88"/>
+<instance part="R3" gate="G$1" x="137.16" y="114.3" rot="R90"/>
+<instance part="R9" gate="G$1" x="142.24" y="114.3" rot="R90"/>
+<instance part="VCC7" gate="G$1" x="139.7" y="124.46"/>
 </instances>
 <busses>
 </busses>
@@ -7344,6 +7350,15 @@ thru dpy + sd card while off</text>
 <segment>
 <pinref part="C12" gate="G$1" pin="P$1"/>
 <pinref part="VCC6" gate="G$1" pin="VCC"/>
+</segment>
+<segment>
+<pinref part="R3" gate="G$1" pin="P$2"/>
+<pinref part="R9" gate="G$1" pin="P$2"/>
+<wire x1="137.16" y1="119.38" x2="139.7" y2="119.38" width="0.1524" layer="91"/>
+<pinref part="VCC7" gate="G$1" pin="VCC"/>
+<wire x1="139.7" y1="119.38" x2="142.24" y2="119.38" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="119.38" x2="139.7" y2="121.92" width="0.1524" layer="91"/>
+<junction x="139.7" y="119.38"/>
 </segment>
 </net>
 <net name="BOOT0" class="0">
@@ -7740,8 +7755,12 @@ thru dpy + sd card while off</text>
 <net name="I2CCL" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB6"/>
-<wire x1="157.48" y1="104.14" x2="152.4" y2="104.14" width="0.1524" layer="91"/>
-<label x="147.32" y="104.14" size="1.27" layer="95"/>
+<wire x1="157.48" y1="104.14" x2="137.16" y2="104.14" width="0.1524" layer="91"/>
+<label x="127" y="104.14" size="1.27" layer="95"/>
+<pinref part="R3" gate="G$1" pin="P$1"/>
+<wire x1="137.16" y1="104.14" x2="132.08" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="109.22" x2="137.16" y2="104.14" width="0.1524" layer="91"/>
+<junction x="137.16" y="104.14"/>
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="SCL"/>
@@ -7767,8 +7786,12 @@ thru dpy + sd card while off</text>
 <net name="I2CDA" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB7"/>
-<wire x1="157.48" y1="101.6" x2="152.4" y2="101.6" width="0.1524" layer="91"/>
-<label x="147.32" y="101.6" size="1.27" layer="95"/>
+<wire x1="157.48" y1="101.6" x2="142.24" y2="101.6" width="0.1524" layer="91"/>
+<label x="127" y="101.6" size="1.27" layer="95"/>
+<pinref part="R9" gate="G$1" pin="P$1"/>
+<wire x1="142.24" y1="101.6" x2="132.08" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="109.22" x2="142.24" y2="101.6" width="0.1524" layer="91"/>
+<junction x="142.24" y="101.6"/>
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="SDA"/>
