@@ -62,7 +62,7 @@ static i2c_msg pwrinit[] = {
 };
 
 static i2c_msg pwroff[] = {
-    I2C_MSG_C2( ADP5062_ADDRESS,   0, ADP5062_REGISTER_FUNC1,       0x40 ),	// disable
+    I2C_MSG_C2( ADP5062_ADDRESS,   0, ADP5062_REGISTER_FUNC1,       0x0 ),
     // QQQ - many options. turn charging off? ldo?
     // NB - max17048 will hibernate by itself
 };

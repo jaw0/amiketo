@@ -25,6 +25,19 @@ extern void blinky(void);
 
 
 void
+serial_baudtest(void){
+    int i;
+
+    while(1){
+        for(i=19200; i<76800; i+=100){
+            serial_setbaud(0, i);
+            printf("\n%d %d %d %d\n", i,i,i,i);
+            usleep(100000);
+        }
+    }
+}
+
+void
 vcp_shell(void){
     FILE *f = fopen("dev:vcp0", "w");
     if( !f ) return;

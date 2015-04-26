@@ -90,7 +90,7 @@ DEFUN(uiwake, "test ui sleep")
 static void
 screensaver(void){
     char saver = 0;
-    short i=0, y=0;
+    short i=0, y=0, x;
 
     if( power_level() >= 100 ){
         printf("\e[J\e[10m");
@@ -103,6 +103,7 @@ screensaver(void){
         if( accel_x() > TILT_MIN || accel_x() < -TILT_MIN || accel_y() > TILT_MIN || accel_y() < -TILT_MIN )
             break;
         if( saver ){
+#if 0
             // animate
             if( y & 1 ){
                 printf("\e[%d;0H\e[>%c",  y, i?' ':'.');
@@ -112,6 +113,23 @@ screensaver(void){
             printf("\xB");
             i = (i + 1) % 9;
             y = (y + 1) % 8;
+#else
+
+            printf("\e[%d;1H", y);
+            for(x=0; x<26; x++){
+                char c = (x+y+i) % 9 ? '\\' : 'Y';
+                //if( !((x+y+i) % 23 ) ) c = 'O';
+
+                if( y & 1 ){
+                    printf("%c", (y+i-x+8) % 8 ? ' ' : c);
+                }else{
+                    printf("%c", (y+x+i) % 8   ? ' ' : '/');
+                }
+            }
+            printf("\xB");
+            y = (y + 1) % 8;
+            if(!y) i++;// = (i + 1) % 9;
+#endif
         }
         usleep(10000);
     }

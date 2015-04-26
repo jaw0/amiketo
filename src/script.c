@@ -489,6 +489,8 @@ run_bytecode(void){
     }
 }
 
+#ifdef KTESTING
+
 #define DPYOP( x )	printf(" " #x " ")
 void
 dump_bytecode(void){
@@ -511,7 +513,7 @@ dump_bytecode(void){
             printf("var(%d) ", a);
             break;
         case LSTOK_CONST:
-            printf("#(%d) ", *(short*)(progmem + pc));
+            printf("%d ", *(short*)(progmem + pc));
             pc += 2;
             break;
         case LSTOK_NOT:		DPYOP( ! );	break;
@@ -536,18 +538,21 @@ dump_bytecode(void){
         case LSTOK_SHR:		DPYOP( >> );	break;
 
         case LSTOK_IF:
-            printf("if %x else %x\n", *(short*)(progmem + pc), *(short*)(progmem + pc + 2));
+            printf("if then %x else %x\n", *(short*)(progmem + pc), *(short*)(progmem + pc + 2));
             pc += 4;
             break;
         }
     }
 }
+#endif
 
 void
 compile_script(void){
 
-    if( ! logger_script[0] ) return;
-
+    if( ! logger_script[0] ){
+        progmem[0] = 0;
+        return;
+    }
     proglen = load_script( logger_script );
 }
 

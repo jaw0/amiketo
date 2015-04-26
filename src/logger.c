@@ -27,6 +27,7 @@
 #define LOGFMT_XLAW	6	// unsigned alaw variant
 #define LOGFMT_XML	7
 #define LOGFMT_BITS	8	// raw packed bits (digital inputs only)
+#define LOGFMT_TCA	8	// tagged compressed alaw
 
 // sd driver runs best at 8k writes
 #define WRITESIZE	8192
@@ -87,6 +88,7 @@ static void log_out_alaw(void);
 static void log_out_xlaw(void);
 static void log_out_xml(void);
 static void log_out_bits(void);
+static void log_out_tca(void);
 static void set_logger_format(void);
 static void logger_wakeup(void);
 
@@ -218,6 +220,24 @@ DEFUN(logger_rotate, "rotate logger logfile")
     return 0;
 }
 
+extern int ivolume;
+extern const struct Menu guilogon, guilogoff;
+
+DEFUN(logger_menu, 0)
+{
+    if( logproc_pid ){
+        menu( &guilogon );
+    }else if( log_usec ){
+        menu( &guilogoff );
+    }else{
+        printf("not configured\n");
+        play(ivolume, "d4>>g4->g4->g4->");
+        usleep(500000);
+    }
+
+    return 0;
+}
+
 static void
 goto_sleep(uint32_t sec){
 
@@ -249,6 +269,9 @@ logger_wakeup(void){
         log_one();
         logbuf_save();
         RTC->BKP3R = logger_count;
+    }else{
+        // why are we awake? power down.
+        goto_sleep(0);
     }
 
     // set alarm + power off
@@ -334,48 +357,56 @@ error(const char *msg){
     return 0;
 }
 
+static const struct {
+    const char *name;
+    int value;
+    void (*func)(void);
+} _log_formats[] = {
+    { "csv",  LOGFMT_CSV,  log_out_csv  },
+    { "json", LOGFMT_JSON, log_out_json },
+    { "txt",  LOGFMT_TXT,  log_out_txt  },
+    { "raw",  LOGFMT_RAW,  log_out_raw  },
+    { "sln",  LOGFMT_SLN,  log_out_sln  },
+    { "alaw", LOGFMT_ALAW, log_out_alaw },
+    { "xlaw", LOGFMT_XLAW, log_out_xlaw },
+    { "xml",  LOGFMT_XML,  log_out_xml  },
+    { "bits", LOGFMT_BITS, log_out_bits },
+    { "tca",  LOGFMT_TCA,  log_out_tca },
+};
+
+
 static void
 set_logger_format(void){
+    short i;
 
-    switch(log_fmt){
-    case LOGFMT_CSV:	log_output = log_out_csv;	break;
-    case LOGFMT_JSON:	log_output = log_out_json;	break;
-    case LOGFMT_TXT:	log_output = log_out_txt;	break;
-    case LOGFMT_RAW:	log_output = log_out_raw;	break;
-    case LOGFMT_SLN:	log_output = log_out_sln;	break;
-    case LOGFMT_ALAW:	log_output = log_out_alaw;	break;
-    case LOGFMT_XLAW:	log_output = log_out_xlaw;	break;
-    case LOGFMT_XML:	log_output = log_out_xml;	break;
-    case LOGFMT_BITS:	log_output = log_out_bits;	break;
-
-    default:		log_output = log_out_raw; 	break;
+    for(i=0; i<ELEMENTSIN(_log_formats); i++){
+        if( _log_formats[i].value == log_fmt ){
+            log_output = _log_formats[i].func;
+            return;
+        }
     }
+
+    log_output = log_out_raw;
 }
 
 DEFUN(logger_format, "set log file format")
 {
-    if( argc < 2 ) return error("logger_fmt csv|txt|json|raw|sln|bits|alaw|xlaw|xml\n");
+    short i;
 
-    if( !strcmp(argv[1], "raw") ){
-        log_fmt    = LOGFMT_RAW;
-    }else if( !strcmp(argv[1], "json") ){
-        log_fmt = LOGFMT_JSON;
-    }else if( !strcmp(argv[1], "txt") ){
-        log_fmt = LOGFMT_TXT;
-    }else if( !strcmp(argv[1], "csv") ){
-        log_fmt = LOGFMT_CSV;
-    }else if( !strcmp(argv[1], "xml") ){
-        log_fmt = LOGFMT_XML;
-    }else if( !strcmp(argv[1], "sln") ){
-        log_fmt = LOGFMT_SLN;
-    }else if( !strcmp(argv[1], "alaw") ){
-        log_fmt = LOGFMT_ALAW;
-    }else if( !strcmp(argv[1], "xlaw") ){
-        log_fmt = LOGFMT_BITS;
-    }else if( !strcmp(argv[1], "bits") ){
-        log_fmt = LOGFMT_XLAW;
-    }else
-        return error("invalid format: csv|txt|json|raw|sln|bits|alaw|xlaw|xml\n");
+    if( argc >= 2 ){
+        for(i=0; i<ELEMENTSIN(_log_formats); i++){
+            if( !strcmp(argv[1], _log_formats[i].name) ){
+                log_fmt = _log_formats[i].value;
+                return 0;
+            }
+        }
+    }
+
+    fprintf(STDERR, "%s:", argv[0]);
+    for(i=0; i<ELEMENTSIN(_log_formats); i++){
+        fprintf(STDERR, "%c%s", (i?'|':' '), _log_formats[i].name);
+    }
+    fprintf(STDERR, "\n");
 
     return 0;
 }
@@ -459,16 +490,11 @@ DEFCONFUNC(logconf, f)
     // logusec
     // fmt
 
-    switch(log_fmt){
-    case LOGFMT_CSV:	fprintf(f, "logger_format csv\n");	break;
-    case LOGFMT_JSON:	fprintf(f, "logger_format json\n");	break;
-    case LOGFMT_TXT:	fprintf(f, "logger_format txt\n");	break;
-    case LOGFMT_RAW:	fprintf(f, "logger_format raw\n");	break;
-    case LOGFMT_SLN:	fprintf(f, "logger_format sln\n");	break;
-    case LOGFMT_ALAW:	fprintf(f, "logger_format alaw\n");	break;
-    case LOGFMT_XLAW:	fprintf(f, "logger_format xlaw\n");	break;
-    case LOGFMT_XML:	fprintf(f, "logger_format xml\n");	break;
-    case LOGFMT_BITS:	fprintf(f, "logger_format bits\n");	break;
+    for(i=0; i<ELEMENTSIN(_log_formats); i++){
+        if( _log_formats[i].value == log_fmt ){
+            fprintf(f, "logger_format %s\n", _log_formats[i].name);
+            break;
+        }
     }
 
     if( log_logval ){
@@ -718,10 +744,10 @@ log_out_xlaw(void){
 
 static inline int
 alaw_encode(int v){
-    char sign = 0;
+    char sign = 0x80;	// 1 => positive
 
     if( v<0 ){
-        sign = 0x80;
+        sign = 0;
         v = - v;
     }
 
@@ -746,6 +772,54 @@ static void
 log_out_alaw(void){
     short i;
 
+    for(i=0; i<32; i++){
+        if( log_logval & (1<<i) ){
+            int8_t v = alaw_encode( log_values[i] - 2048 );
+            log_append( (char*)&v, 1 );
+        }
+    }
+}
+
+
+#define QUIETLVL	410
+#define QUIETCNT	 20
+
+// alaw value 0x55 (negative 0) is not used as a value, so we usurp it as an escape for tagged metadata
+// <55><tag><data>
+// tag 00     => 64bit usec timestamp
+// tag 01..FF => future use
+
+static void
+log_out_tca(void){
+    short i;
+    static utime_t tnext = 0;
+    static short qcount  = 0;
+    utime_t now = get_hrtime();
+
+
+    // detect + remove silence
+    qcount ++;
+    for(i=0; i<32; i++){
+        if( log_logval & (1<<i) ){
+            short v = log_values[i] - 2048;
+            if( v > QUIETLVL || v <-QUIETLVL ) qcount = 0;
+        }
+    }
+
+    if( qcount >= QUIETCNT ){
+        tnext = 0;
+        return;
+    }
+
+    // add timestamp
+    if( now >= tnext ){
+        i = 0x0055;		// little-endian
+        log_append( (char*)&i,   2);
+        log_append( (char*)&now, 8);
+        tnext = now + 1000000;	// no more than 1 per second
+    }
+
+    // add values
     for(i=0; i<32; i++){
         if( log_logval & (1<<i) ){
             int8_t v = alaw_encode( log_values[i] - 2048 );

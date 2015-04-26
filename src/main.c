@@ -30,11 +30,12 @@ extern void blinky(void);
 // NB: if we check the flash first, a bad config could brick the system
 #define RUN_SCRIPT(file)        (run_script("sd0:" file) && run_script("fl0:" file))
 
-DEFVAR(int, ui_enable, 1, UV_TYPE_UL | UV_TYPE_CONFIG, "run user-interface on display")
+DEFVAR(int, ui_enable,  1, UV_TYPE_UL | UV_TYPE_CONFIG, "run user-interface on display")
+DEFVAR(int, ser_enable, 1, UV_TYPE_UL | UV_TYPE_CONFIG, "run user-interface on serial")
 
 DEFUN(save, "save all config data")
 {
-    save_config("fl0:config.rc");
+    // save_config("fl0:config.rc");
     save_config("config.rc");
     return 0;
 }
@@ -183,6 +184,18 @@ uiproc(void){
     menu( &guitop );
 }
 
+
+void
+serproc(void){
+    FILE *f = fopen("dev:serial0", "w");
+    STDOUT = f;
+    STDIN  = f;
+    STDERR = f;
+
+    usleep( 100000 );
+    shell();
+}
+
 //################################################################
 
 
@@ -210,7 +223,7 @@ main(void){
 
     set_onwake( 0 );
     set_led_white( 0xFF );
-    two_copies("config.rc");	// to be safe
+    // two_copies("config.rc");	// to be safe
     board_init2();
 
     // usb mode
@@ -222,6 +235,8 @@ main(void){
 
     start_proc(512, blinky, "blinky");
     start_proc(2048, uiproc, "ui");
+    start_proc(2048, serproc, "shell");
+    //serial_baudtest();
 
     logger_init();
 
