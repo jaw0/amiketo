@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -7014,6 +7014,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R11" library="jaw" deviceset="R" device="0603" value="1M"/>
 <part name="VR1" library="jaw" deviceset="REGULATOR" device="-SOT23-3" value="mcp1700 /3v3"/>
 <part name="FRAME2" library="frames" deviceset="FRAME_B_L" device=""/>
+<part name="R12" library="jaw" deviceset="R" device="0603" value="4k7"/>
+<part name="C13" library="jaw" deviceset="C" device="0603" value=".001u"/>
+<part name="GND2" library="jaw" deviceset="PWR-GND" device=""/>
+<part name="D3" library="jaw" deviceset="DIODE" device="SOD-323" value="any"/>
 </parts>
 <sheets>
 <sheet>
@@ -7021,8 +7025,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <text x="307.34" y="81.28" size="3.81" layer="97">SD CARD</text>
 <text x="381" y="73.66" size="3.81" layer="97">display</text>
 <text x="373.38" y="114.3" size="3.81" layer="97">JTAG/SWD</text>
-<text x="223.52" y="68.58" size="1.27" layer="97">to reduce leakage current
+<text x="226.06" y="63.5" size="1.27" layer="97">to reduce leakage current
 thru dpy + sd card while off</text>
+<text x="210.82" y="43.18" size="1.27" layer="97">generate reset for display
+after Q2 is turned on</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="175.26" y="121.92"/>
@@ -7105,8 +7111,8 @@ thru dpy + sd card while off</text>
 <instance part="LOGO1" gate="G$1" x="414.02" y="27.94"/>
 <instance part="U$1" gate="G$1" x="388.62" y="25.4"/>
 <instance part="R2" gate="G$1" x="299.72" y="193.04"/>
-<instance part="Q2" gate="G$1" x="215.9" y="55.88" rot="R180"/>
-<instance part="VCC5" gate="G$1" x="215.9" y="71.12"/>
+<instance part="Q2" gate="G$1" x="223.52" y="55.88" rot="MR180"/>
+<instance part="VCC5" gate="G$1" x="223.52" y="73.66"/>
 <instance part="VCCE1" gate="G$1" x="241.3" y="55.88"/>
 <instance part="VCCE2" gate="G$1" x="287.02" y="60.96"/>
 <instance part="VCCE4" gate="G$1" x="330.2" y="73.66"/>
@@ -7123,13 +7129,17 @@ thru dpy + sd card while off</text>
 <instance part="VCC7" gate="G$1" x="139.7" y="124.46"/>
 <instance part="CONN1" gate="G$1" x="386.08" y="55.88"/>
 <instance part="R10" gate="G$1" x="304.8" y="187.96" rot="R270"/>
-<instance part="R11" gate="G$1" x="223.52" y="63.5"/>
+<instance part="R11" gate="G$1" x="215.9" y="63.5" rot="R180"/>
 <instance part="VR1" gate="G$1" x="119.38" y="66.04" smashed="yes">
 <attribute name="NAME" x="109.22" y="58.42" size="2.54" layer="95" ratio="10"/>
 <attribute name="VALUE" x="109.22" y="71.12" size="2.54" layer="96" ratio="10"/>
 </instance>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
 <instance part="FRAME2" gate="G$2" x="325.12" y="0"/>
+<instance part="R12" gate="G$1" x="241.3" y="40.64" rot="R90"/>
+<instance part="C13" gate="G$1" x="241.3" y="30.48"/>
+<instance part="GND2" gate="G$1" x="241.3" y="25.4"/>
+<instance part="D3" gate="G$1" x="233.68" y="35.56" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -7354,6 +7364,10 @@ thru dpy + sd card while off</text>
 <wire x1="393.7" y1="58.42" x2="396.24" y2="58.42" width="0.1524" layer="91"/>
 <label x="396.24" y="58.42" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="C13" gate="G$1" pin="P$2"/>
+<pinref part="GND2" gate="G$1" pin="GND"/>
+</segment>
 </net>
 <net name="VCC" class="0">
 <segment>
@@ -7428,11 +7442,11 @@ thru dpy + sd card while off</text>
 <segment>
 <pinref part="VCC5" gate="G$1" pin="VCC"/>
 <pinref part="Q2" gate="G$1" pin="S"/>
-<wire x1="215.9" y1="68.58" x2="215.9" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="215.9" y1="63.5" x2="215.9" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="71.12" x2="223.52" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="63.5" x2="223.52" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="R11" gate="G$1" pin="P$1"/>
-<wire x1="218.44" y1="63.5" x2="215.9" y2="63.5" width="0.1524" layer="91"/>
-<junction x="215.9" y="63.5"/>
+<wire x1="220.98" y1="63.5" x2="223.52" y2="63.5" width="0.1524" layer="91"/>
+<junction x="223.52" y="63.5"/>
 </segment>
 <segment>
 <pinref part="U2" gate="G$1" pin="CS"/>
@@ -7468,6 +7482,7 @@ thru dpy + sd card while off</text>
 <wire x1="149.86" y1="172.72" x2="149.86" y2="165.1" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="BOOT0"/>
 <wire x1="149.86" y1="165.1" x2="157.48" y2="165.1" width="0.1524" layer="91"/>
+<label x="134.62" y="172.72" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="C13"/>
@@ -7511,6 +7526,7 @@ thru dpy + sd card while off</text>
 <wire x1="152.4" y1="193.04" x2="152.4" y2="167.64" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="NRST"/>
 <wire x1="152.4" y1="167.64" x2="157.48" y2="167.64" width="0.1524" layer="91"/>
+<label x="134.62" y="193.04" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="4"/>
@@ -7523,9 +7539,9 @@ thru dpy + sd card while off</text>
 <label x="375.92" y="160.02" size="1.27" layer="95"/>
 </segment>
 <segment>
-<pinref part="CONN1" gate="G$1" pin="2"/>
-<wire x1="393.7" y1="66.04" x2="396.24" y2="66.04" width="0.1524" layer="91"/>
-<label x="396.24" y="66.04" size="1.778" layer="95"/>
+<pinref part="D3" gate="G$1" pin="C"/>
+<wire x1="231.14" y1="35.56" x2="226.06" y2="35.56" width="0.1524" layer="91"/>
+<label x="220.98" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -8160,7 +8176,10 @@ thru dpy + sd card while off</text>
 <pinref part="VCCE1" gate="G$1" pin="VCCE"/>
 <pinref part="Q2" gate="G$1" pin="D"/>
 <wire x1="241.3" y1="53.34" x2="241.3" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="241.3" y1="50.8" x2="215.9" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="241.3" y1="50.8" x2="223.52" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="R12" gate="G$1" pin="P$2"/>
+<wire x1="241.3" y1="45.72" x2="241.3" y2="50.8" width="0.1524" layer="91"/>
+<junction x="241.3" y="50.8"/>
 </segment>
 <segment>
 <pinref part="CN1" gate="G$1" pin="VCC"/>
@@ -8184,12 +8203,12 @@ thru dpy + sd card while off</text>
 <net name="NPWREN" class="0">
 <segment>
 <pinref part="Q2" gate="G$1" pin="G"/>
-<wire x1="220.98" y1="58.42" x2="228.6" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="228.6" y1="58.42" x2="228.6" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="228.6" y1="63.5" x2="246.38" y2="63.5" width="0.1524" layer="91"/>
-<label x="246.38" y="63.5" size="1.27" layer="95"/>
+<wire x1="218.44" y1="58.42" x2="210.82" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="58.42" x2="210.82" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="63.5" x2="205.74" y2="63.5" width="0.1524" layer="91"/>
+<label x="200.66" y="63.5" size="1.27" layer="95"/>
 <pinref part="R11" gate="G$1" pin="P$2"/>
-<junction x="228.6" y="63.5"/>
+<junction x="210.82" y="63.5"/>
 </segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="PB5"/>
@@ -8201,6 +8220,22 @@ thru dpy + sd card while off</text>
 <segment>
 <pinref part="F1" gate="G$1" pin="2"/>
 <pinref part="D2" gate="G$1" pin="A"/>
+</segment>
+</net>
+<net name="NRST2" class="0">
+<segment>
+<pinref part="R12" gate="G$1" pin="P$1"/>
+<pinref part="C13" gate="G$1" pin="P$1"/>
+<pinref part="D3" gate="G$1" pin="A"/>
+<wire x1="236.22" y1="35.56" x2="241.3" y2="35.56" width="0.1524" layer="91"/>
+<junction x="241.3" y="35.56"/>
+<wire x1="241.3" y1="35.56" x2="248.92" y2="35.56" width="0.1524" layer="91"/>
+<label x="248.92" y="35.56" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="CONN1" gate="G$1" pin="2"/>
+<wire x1="393.7" y1="66.04" x2="396.24" y2="66.04" width="0.1524" layer="91"/>
+<label x="396.24" y="66.04" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
