@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -4643,12 +4643,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <text x="142.24" y="17.78" size="1.27" layer="97">VCOM</text>
 <text x="142.24" y="15.24" size="1.27" layer="97">VCC</text>
 <text x="25.4" y="81.28" size="2.54" layer="97">0.96", 128x64 pixel, ssd1306 based
-monochrome OLED, ebay special</text>
+monochrome OLED</text>
 </plain>
 <instances>
-<instance part="C1" gate="G$1" x="83.82" y="55.88"/>
-<instance part="VCC1" gate="G$1" x="83.82" y="66.04"/>
-<instance part="GND1" gate="G$1" x="83.82" y="48.26"/>
+<instance part="C1" gate="G$1" x="78.74" y="12.7"/>
+<instance part="VCC1" gate="G$1" x="78.74" y="22.86"/>
+<instance part="GND1" gate="G$1" x="78.74" y="5.08"/>
 <instance part="CONN1" gate="G$1" x="137.16" y="45.72"/>
 <instance part="C2" gate="G$1" x="116.84" y="81.28" rot="R90"/>
 <instance part="C3" gate="G$1" x="116.84" y="76.2" rot="R90"/>
@@ -4656,7 +4656,7 @@ monochrome OLED, ebay special</text>
 <instance part="C5" gate="G$1" x="116.84" y="10.16" rot="R90"/>
 <instance part="C6" gate="G$1" x="106.68" y="17.78" rot="R90"/>
 <instance part="GND2" gate="G$1" x="99.06" y="5.08"/>
-<instance part="C7" gate="G$1" x="76.2" y="55.88"/>
+<instance part="C7" gate="G$1" x="71.12" y="12.7"/>
 <instance part="R1" gate="G$1" x="116.84" y="20.32"/>
 <instance part="U$1" gate="G$1" x="170.18" y="7.62"/>
 <instance part="U$2" gate="G$1" x="177.8" y="7.62"/>
@@ -4672,11 +4672,11 @@ monochrome OLED, ebay special</text>
 <net name="GND" class="0">
 <segment>
 <pinref part="C1" gate="G$1" pin="P$2"/>
-<wire x1="83.82" y1="53.34" x2="83.82" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="10.16" x2="78.74" y2="7.62" width="0.1524" layer="91"/>
 <pinref part="GND1" gate="G$1" pin="GND"/>
 <pinref part="C7" gate="G$1" pin="P$2"/>
-<wire x1="76.2" y1="53.34" x2="83.82" y2="53.34" width="0.1524" layer="91"/>
-<junction x="83.82" y="53.34"/>
+<wire x1="71.12" y1="10.16" x2="78.74" y2="10.16" width="0.1524" layer="91"/>
+<junction x="78.74" y="10.16"/>
 </segment>
 <segment>
 <pinref part="CONN1" gate="G$1" pin="1"/>
@@ -4741,11 +4741,11 @@ monochrome OLED, ebay special</text>
 <net name="VCC" class="0">
 <segment>
 <pinref part="C1" gate="G$1" pin="P$1"/>
-<wire x1="83.82" y1="60.96" x2="83.82" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="17.78" x2="78.74" y2="20.32" width="0.1524" layer="91"/>
 <pinref part="VCC1" gate="G$1" pin="VCC"/>
 <pinref part="C7" gate="G$1" pin="P$1"/>
-<wire x1="83.82" y1="60.96" x2="76.2" y2="60.96" width="0.1524" layer="91"/>
-<junction x="83.82" y="60.96"/>
+<wire x1="78.74" y1="17.78" x2="71.12" y2="17.78" width="0.1524" layer="91"/>
+<junction x="78.74" y="17.78"/>
 </segment>
 <segment>
 <pinref part="CONN1" gate="G$1" pin="9"/>
@@ -4765,14 +4765,14 @@ monochrome OLED, ebay special</text>
 </net>
 <net name="NRST" class="0">
 <segment>
-<pinref part="CONN1" gate="G$1" pin="14"/>
-<wire x1="137.16" y1="50.8" x2="129.54" y2="50.8" width="0.1524" layer="91"/>
-<label x="124.46" y="50.8" size="1.27" layer="95"/>
-</segment>
-<segment>
 <pinref part="CONN2" gate="G$1" pin="2"/>
 <wire x1="48.26" y1="50.8" x2="50.8" y2="50.8" width="0.1524" layer="91"/>
 <label x="50.8" y="50.8" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="CONN1" gate="G$1" pin="14"/>
+<wire x1="137.16" y1="50.8" x2="129.54" y2="50.8" width="0.1524" layer="91"/>
+<label x="124.46" y="50.8" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="DPYDC" class="0">
