@@ -12,12 +12,14 @@ extern "C" {
 #include <ioctl.h>
 #include <error.h>
 #include <stm32.h>
+#include <userint.h>
 };
 
 #include "gfxdpy.h"
 
 extern "C" void splash( GFXdpy* );
 extern "C" int was_rtc_wakeup(void);
+extern "C" void ui_pause(void), ui_resume(void);
 
 static uint8_t image[] = {
 
@@ -118,3 +120,52 @@ splash( GFXdpy *dpy ){
     dpy->flush();
 }
 
+#define D 48
+#define S 32
+void inline
+ss_draw(GFXdpy *g, int i, int color){
+    short x,y;
+
+    for(x=i-D; x<g->width; x+=S)
+        g->line(x,0, x+D,g->height-1, color, 0xf0f0f0f0);
+
+    for(x=-i; x<g->width+D; x+=S)
+        g->line(x,0, x-D, g->height-1, color, 0xFF00FF00);
+}
+
+
+extern "C" void
+screensaver_step(void){
+    GFXdpy *g = (GFXdpy*)fioctl(STDOUT, IOC_GFXDPY, 0);
+    if(!g) return;
+    static short i = 0;
+
+    ss_draw(g, i, 0xFFFFFF);
+    g->flush();
+    ss_draw(g, i, 0);
+
+    i = (i+1) % S;
+}
+
+
+extern "C"
+DEFUN(gfxtest, "test gfx")
+{
+    FILE *f   = fopen("dev:oled0", "w");
+    GFXdpy *g = (GFXdpy*)fioctl(f, IOC_GFXDPY, 0);
+    if(!g) return 0;
+
+    ui_pause();
+    g->clear_screen();
+
+    g->line(8,32, 120,32, 0xFFFFFF, 0xF0F0F0F0);
+    g->line(8,32, 120,60, 0xFFFFFF, 0xF0F0F0F0);
+    g->rect(16,16, 48,24, 0xFFFFFF, 0xF0F0F0F0);
+    g->rect_filled(80,16, 100,64, 0xFFFFFF);
+
+    g->flush();
+    sleep(2);
+
+    ui_resume();
+    return 0;
+}

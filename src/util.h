@@ -17,4 +17,6 @@ typedef char bool;
 
 extern unsigned int random(void);
 
+#define set_font(f)	fioctl(STDOUT, IOC_GFXFONTNAME, f)
+
 #endif /* __util_h__ */

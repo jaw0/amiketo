@@ -27,7 +27,7 @@
 #define LOGFMT_XLAW	6	// unsigned alaw variant
 #define LOGFMT_XML	7
 #define LOGFMT_BITS	8	// raw packed bits (digital inputs only)
-#define LOGFMT_TCA	8	// tagged compressed alaw
+#define LOGFMT_TCA	9	// tagged compressed alaw
 
 // sd driver runs best at 8k writes
 #define WRITESIZE	8192
@@ -62,6 +62,10 @@ uint32_t log_chkval                 = 0; 	// the script needs these values
 uint32_t log_logval                 = 0; 	// output these values
 short    log_values[32];			// adc values
 
+static int     overrun_count   = 0;
+static bool    overrun_warned  = 0;
+static bool    overflow_warned = 0;
+
 // for the disk write process
 static char    datbuf[BUFSIZE];			// output buffer
 static int     logpos          = 0;		// current end position
@@ -72,7 +76,6 @@ static bool    bufproc_pause   = 0;
 static bool    bufproc_flush   = 0;
 static bool    bufproc_rotate  = 0;
 static FILE   *logfd           = 0;
-static bool    overflow_warned = 0;
 
 extern u_char progmem[];
 
@@ -204,6 +207,7 @@ DEFUN(logger_start, "start logger")
 DEFUN(logger_stop, "stop logger")
 {
     logger_stop();
+    set_blinky(0);
 }
 
 DEFUN(logger_reload, "reload logger config")
@@ -315,7 +319,11 @@ logproc(void){
     currproc->flags |= PRF_REALTIME | PRF_SIGWAKES;
     currproc->prio   = 0;	// highest priority
 
-    utime_t t0 = get_time();
+    set_blinky(0);
+    overrun_count  = 0;
+    overrun_warned = 0;
+
+    utime_t t0 = get_hrtime();
 
     while( !logproc_close ){
 
@@ -328,6 +336,20 @@ logproc(void){
 
         log_one();
         if( use_timer ){
+#if 1
+            utime_t t1 = get_hrtime();
+            utime_t usec = t1 - t0;
+            t0 = t1;
+            if( usec >= 2*log_usec ){
+                if( ++overrun_count > 5 && !overrun_warned ){
+                    kprintf("logger sample rate too fast %d\n", (int)usec);
+                    set_blinky(4);
+                    overrun_warned = 1;
+                }
+            }else
+                overrun_count = 0;
+
+#endif
             timer_wait();
         }else{
             utime_t t1 = get_time();
@@ -566,6 +588,7 @@ _buf_rotate(void){
     }
 
     overflow_warned = 0;
+    set_blinky(4);
     set_logger_format();
 }
 
@@ -666,6 +689,7 @@ log_append( const char *data, int len ){
         if( savepos ? (logpos == savepos - 1) : (logpos == BUFSIZE - 1) ){
             if( !overflow_warned ){
                 kprintf("logger buffer overflow\n");
+                set_blinky(4);
                 overflow_warned = 1;
             }
             break;

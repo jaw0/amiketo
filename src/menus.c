@@ -50,6 +50,7 @@ const struct Menu menu_aaaf = {
 const struct Menu menu_aaag = {
     "Diag", &guitop, 0, {
 	{ "imu", MTYP_FUNC, (void*)ui_f_imutest, sizeof(argv_empty)/4, argv_empty },
+	{ "font", MTYP_FUNC, (void*)ui_f_fonttest, sizeof(argv_empty)/4, argv_empty },
 	{}
     }
 };

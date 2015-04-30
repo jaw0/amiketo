@@ -18,6 +18,7 @@
 #include <stm32.h>
 #include <userint.h>
 
+#include "util.h"
 
 DEFUN(clock, "display clock")
 {
@@ -27,8 +28,19 @@ DEFUN(clock, "display clock")
         read_imu_quick();
         utime_t now = get_time();
         gmtime_r( &now, &t );
-        printf("\e[J\e[15m\e[2s");	// 6x12; scaled*2
-        printf("\n %02.2d:%02.2d:%02.2d\n", t.tm_hour, t.tm_min, t.tm_sec);
+
+        set_font("ncenB18_n");
+        printf("\e[16;0=");
+        printf("%02.2d:%02.2d", t.tm_hour, t.tm_min);
+        set_font("ncenB10_n");
+        printf(" %02.2d\n", t.tm_sec);
+
+        set_font("ncenB10_n");
+        printf("\e[-1;0H");
+        printf("%04.4d-%02.2d-%02.2d\n", t.tm_year, t.tm_mon, t.tm_mday);
+
+        //printf("\e[J\e[15m\e[2s");	// 6x12; scaled*2
+        //printf("\n %02.2d:%02.2d:%02.2d\n", t.tm_hour, t.tm_min, t.tm_sec);
 
         if( check_button_or_upsidedown() ) break;
         usleep( 1000000 - now % 1000000 );

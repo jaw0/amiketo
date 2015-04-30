@@ -16,9 +16,11 @@
 #include <ioctl.h>
 #include <error.h>
 #include <stm32.h>
+#include <font.h>
 #include <userint.h>
 
 #include "board.h"
+#include "util.h"
 
 
 extern void blinky(void);
@@ -72,3 +74,35 @@ xxxmain(void){
     //}
 }
 
+
+extern const struct Font * const fonts[N_FONT];
+
+DEFUN(fonttest, "font test")
+{
+    int i;
+    ui_pause();
+#if 1
+    for(i=0; i<N_FONT; i++){
+        set_font( fonts[i]->name );
+        printf("%s\nAfgiyO0\n", fonts[i]->name);
+        sleep(1);
+    }
+    sleep(2);
+#endif
+#if 0
+    set_font("4x6");
+    printf("4x6\n");
+    set_font("10x20");
+    printf("10x20\n");
+    sleep(1);
+#endif
+
+    set_font("profont12");
+    printf("~!@#$%^&*()_+_=\n");
+    printf("0123456789:;,.?\n");
+    printf("abcfghpqrtijABC\n");
+    sleep(5);
+    
+    ui_resume();
+    return 0;
+}
