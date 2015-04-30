@@ -6963,7 +6963,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R8" library="jaw" deviceset="R" device="0603" value="470"/>
 <part name="GND9" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="SPKR1" library="jaw" deviceset="PUI-5040" device=""/>
-<part name="D1" library="jaw" deviceset="DIODE" device="SOD-323" value="200mA"/>
+<part name="D1" library="jaw" deviceset="DIODE" device="SOD-323" value="any"/>
 <part name="VCC3" library="jaw" deviceset="PWR-VCC" device=""/>
 <part name="GND10" library="jaw" deviceset="PWR-GND" device=""/>
 <part name="Q1" library="jaw" deviceset="MOSFET" device="SOT-23" value="IRLML6344TRPBF"/>

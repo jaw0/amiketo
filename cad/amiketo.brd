@@ -1510,7 +1510,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="29.532" y="31.992" size="0.75" layer="25" ratio="10" rot="R180"/>
 <attribute name="VALUE" x="29.016" y="29.268" size="0.508" layer="27" rot="R90"/>
 </element>
-<element name="D1" library="jaw" package="SOD-323" value="200mA" x="32.5" y="31" smashed="yes" rot="R270">
+<element name="D1" library="jaw" package="SOD-323" value="any" x="32.5" y="31" smashed="yes" rot="R270">
 <attribute name="NAME" x="31.6" y="33" size="1" layer="25" ratio="10"/>
 <attribute name="VALUE" x="30.516" y="33.3" size="1" layer="27" ratio="10" rot="R270"/>
 </element>
@@ -3238,23 +3238,23 @@ Please make sure your boards conform to these design rules.</description>
 <approved hash="5,2,85b6289cacd6dcbb"/>
 <approved hash="5,2,85b6289cacd6dcbb"/>
 <approved hash="19,16,3ce002de1c5e2260"/>
+<approved hash="8,1,4a24d24aae994dac"/>
 <approved hash="3,16,07e1c0f440838796"/>
 <approved hash="3,1,f24865832592b259"/>
 <approved hash="8,1,6894690a18111311"/>
 <approved hash="8,1,330e389b6912e819"/>
 <approved hash="8,1,62f21331234fd410"/>
 <approved hash="8,1,d9ccb3543077cd05"/>
-<approved hash="8,1,4a24d24aae994dac"/>
 <approved hash="8,1,c901e30ef30190f9"/>
 <approved hash="6,1,e10e72067512e61a"/>
-<approved hash="19,1,5ce012ce107f5e51"/>
 <approved hash="19,1,5f60114e0e1f4031"/>
-<approved hash="19,1,9f7e51504e01802f"/>
+<approved hash="19,1,5ce012ce107f5e51"/>
 <approved hash="19,1,9cfe52d050619e4f"/>
+<approved hash="19,1,9f7e51504e01802f"/>
 <approved hash="19,1,39a0df8ee09506bb"/>
 <approved hash="19,1,3e70d85edb953dbb"/>
-<approved hash="19,1,b9a08f8eb09586bb"/>
 <approved hash="19,1,be70885e8b95bdbb"/>
+<approved hash="19,1,b9a08f8eb09586bb"/>
 <approved hash="6,1,e102720a757de675"/>
 <approved hash="6,1,b0a6b0ad40ad40a6"/>
 <approved hash="6,1,df2cd1209920972c"/>
