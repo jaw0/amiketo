@@ -125,16 +125,13 @@ _unlock(void){
 static inline void
 log_acquire(void){
     uint32_t acqval = log_chkval | log_logval;
-    int8_t i;
 
-    for(i=0; i<32; i++){
-        if( acqval & (1<<i) ) log_values[i] = getpini( i );
-    }
+    getpins_all(acqval, log_values);
 }
 
 
 // log once + done
-static void
+void
 log_one(void){
 
     log_acquire();
@@ -311,6 +308,17 @@ logger_config(void){
     return 1;
 }
 
+static utime_t stats_start = 0;
+static int stats_count = 0;
+
+DEFUN(logger_stats, "stats")
+{
+    int dt = get_hrtime() - stats_start;
+    int rate = 1000 * stats_count / (dt / 1000);
+    printf("dt %d, ct: %d, rate: %d\n", dt, stats_count, rate);
+    return 0;
+}
+
 static void
 logproc(void){
     short x = 0;
@@ -322,8 +330,8 @@ logproc(void){
     set_blinky(0);
     overrun_count  = 0;
     overrun_warned = 0;
-
     utime_t t0 = get_hrtime();
+    stats_start = t0;
 
     while( !logproc_close ){
 
@@ -336,7 +344,7 @@ logproc(void){
 
         log_one();
         if( use_timer ){
-#if 1
+#if 0
             utime_t t1 = get_hrtime();
             utime_t usec = t1 - t0;
             t0 = t1;
@@ -348,8 +356,16 @@ logproc(void){
                 }
             }else
                 overrun_count = 0;
-
 #endif
+#if 1
+            stats_count ++;
+            utime_t t1 = get_hrtime();
+            if( t1 - stats_start > 10000000 ){
+                stats_count = 0;
+                stats_start = t1;
+            }
+#endif
+
             timer_wait();
         }else{
             utime_t t1 = get_time();
