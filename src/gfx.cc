@@ -105,8 +105,9 @@ splash( GFXdpy *dpy ){
         }
     }
 
-    dpy->puts("\e[14m");	// 6x10 font
+    dpy->set_font("6x10");
 
+    // fill in details
     // RSN - these should come from conf
     dpy->set_pos(6, 30);
     dpy->puts("STM32F411");
@@ -123,7 +124,7 @@ splash( GFXdpy *dpy ){
 #define D 48
 #define S 32
 void inline
-ss_draw(GFXdpy *g, int i, int color){
+saver_step_draw(GFXdpy *g, int i, int color){
     short x,y;
 
     for(x=i-D; x<g->width; x+=S)
@@ -140,9 +141,9 @@ screensaver_step(void){
     if(!g) return;
     static short i = 0;
 
-    ss_draw(g, i, 0xFFFFFF);
+    saver_step_draw(g, i, 0xFFFFFF);
     g->flush();
-    ss_draw(g, i, 0);
+    saver_step_draw(g, i, 0);
 
     i = (i+1) % S;
 }

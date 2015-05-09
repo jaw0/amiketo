@@ -40,6 +40,8 @@ static int menu_paused = 0;
 
 #define set_leds_rgb(a,b)
 
+// only when not running on battery
+DEFVAR(int, screensaver_enable, 1, UV_TYPE_UL | UV_TYPE_CONFIG, "enable screensaver")
 
 void
 ui_sleep(void){
@@ -92,7 +94,7 @@ screensaver(void){
     char saver = 0;
     short i=0, y=0, x;
 
-    if( power_level() >= 100 ){
+    if( power_level() >= 100 && screensaver_enable ){
         printf("\e[J\e[10m");
         saver = 1;
     }else{
