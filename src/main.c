@@ -30,8 +30,9 @@ extern void blinky(void);
 // NB: if we check the flash first, a bad config could brick the system
 #define RUN_SCRIPT(file)        (run_script("sd0:" file) && run_script("fl0:" file))
 
-DEFVAR(int, ui_enable,  1, UV_TYPE_UL | UV_TYPE_CONFIG, "run user-interface on display")
-DEFVAR(int, ser_enable, 1, UV_TYPE_UL | UV_TYPE_CONFIG, "run user-interface on serial")
+DEFVAR(int, dpy_ui_enable,    1, UV_TYPE_UL | UV_TYPE_CONFIG, "run user-interface on display")
+DEFVAR(int, serial_enable,    1, UV_TYPE_UL | UV_TYPE_CONFIG, "run shell on serial")
+DEFVAR(int, logger_autostart, 1, UV_TYPE_UL | UV_TYPE_CONFIG, "start logger automatically at boot")
 
 DEFUN(save, "save all config data")
 {
@@ -149,6 +150,7 @@ set_onwake(int val){
 
 void
 shutdown(void){
+    kprintf("powering down\n");
     ui_sleep();
     board_disable();
     power_down();
@@ -175,11 +177,6 @@ uiproc(void){
     STDIN  = 0;
 
     usleep( 100000 );
-
-    if( !ui_enable ){
-        fprintf(f, "\e[J\xB");
-        return;
-    }
 
     menu( &guitop );
 }
@@ -222,23 +219,24 @@ main(void){
     }
 
     set_onwake( 0 );
-    set_led_white( 0xFF );
+    set_led_white( 0xFF );	// flash LED
     // two_copies("config.rc");	// to be safe
     board_init2();
-
-    // usb mode
-    // console
 
     set_led_white( 0 );
     play(6, "g4g4g4f4z4a4g2");
     RUN_SCRIPT("startup.rc");
 
     start_proc(512, blinky, "blinky");
-    start_proc(2048, uiproc, "ui");
-    start_proc(2048, serproc, "shell");
-    //serial_baudtest();
 
-    logger_init();
+    if( dpy_ui_enable )
+        start_proc(2048, uiproc, "ui");
+
+    if( serial_enable )
+        start_proc(2048, serproc, "shell");
+
+    if( logger_autostart )
+        logger_init();
 
     printf("\n");
 
