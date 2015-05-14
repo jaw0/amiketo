@@ -8,12 +8,12 @@
 </settings>
 <grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="5" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
 <layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
@@ -22,10 +22,10 @@
 <layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
@@ -542,36 +542,36 @@ Please make sure your boards conform to these design rules.</description>
 <elements>
 <element name="C1" library="jaw" package="SMD0603" value=".1u" x="55.7" y="13" smashed="yes" rot="MR270">
 <attribute name="NAME" x="53.516" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="57.986" y="14.778" size="1.27" layer="28" font="vector" ratio="10" rot="MR270"/>
+<attribute name="VALUE" x="56.386" y="14.578" size="1.27" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
 <element name="CONN1" library="jaw" package="HEADER-30X1-SMD7" value="HEADER-30X1" x="50" y="19.5" smashed="yes" rot="MR0"/>
 <element name="C2" library="jaw" package="SMD0603" value="1u" x="59.5" y="13" smashed="yes" rot="MR90">
 <attribute name="NAME" x="58.916" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="57.414" y="11.222" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="VALUE" x="59.214" y="12.022" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="C3" library="jaw" package="SMD0603" value="1u" x="57.6" y="13" smashed="yes" rot="MR90">
 <attribute name="NAME" x="57.116" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="55.514" y="11.222" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="VALUE" x="57.214" y="12.022" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="C4" library="jaw" package="SMD0603" value="4u7" x="40.2" y="13" smashed="yes" rot="MR90">
 <attribute name="NAME" x="39.716" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="38.114" y="11.222" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="VALUE" x="39.714" y="11.722" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="C5" library="jaw" package="SMD0603" value=".1u" x="38.3" y="13" smashed="yes" rot="MR90">
 <attribute name="NAME" x="37.816" y="9.422" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="36.214" y="11.222" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="VALUE" x="37.914" y="12.022" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="C6" library="jaw" package="SMD0603" value="4u7" x="42" y="13" smashed="yes" rot="MR90">
 <attribute name="NAME" x="41.516" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="39.914" y="11.222" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="VALUE" x="41.614" y="11.622" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="C7" library="jaw" package="SMD0603" value="10u" x="53.8" y="13" smashed="yes" rot="MR270">
 <attribute name="NAME" x="55.416" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="55.886" y="14.778" size="1" layer="28" font="vector" ratio="10" rot="MR270"/>
+<attribute name="VALUE" x="54.286" y="14.478" size="1" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
 <element name="R1" library="jaw" package="SMD0603" value="390k" x="43.8" y="13" smashed="yes" rot="MR90">
 <attribute name="NAME" x="43.416" y="9.522" size="1" layer="26" font="vector" ratio="10" rot="MR90"/>
-<attribute name="VALUE" x="41.714" y="11.222" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="VALUE" x="43.414" y="11.522" size="1" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="U$1" library="adafruit" package="FIDUCIAL_1MM" value="FIDUCIAL" x="61.5" y="24.5" rot="MR0"/>
 <element name="U$2" library="adafruit" package="FIDUCIAL_1MM" value="FIDUCIAL" x="36.5" y="6.5" rot="MR0"/>
