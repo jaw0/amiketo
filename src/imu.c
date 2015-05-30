@@ -15,6 +15,7 @@
 #include "util.h"
 
 #include "lsm303d.h"
+#include "lis3dh.h"
 
 #define ui_pause()
 #define ui_resume()
@@ -28,7 +29,7 @@ static bool have_accel = 0;
 
 static short accel_off_x, accel_off_y, accel_off_z;
 
-
+#if defined(HAVE_LSM303D)
 static i2c_msg imuinit[] = {
     I2C_MSG_C2( LSM303D_ADDRESS,   0, LSM303D_REGISTER_CTRL0, 0 ),
     I2C_MSG_C2( LSM303D_ADDRESS,   0, LSM303D_REGISTER_CTRL1, 0xA7 ),	// enable acc, 1600Hz
@@ -72,6 +73,49 @@ static i2c_msg imureadquick[] = {
     I2C_MSG_DL( LSM303D_ADDRESS,   I2C_MSGF_READ, 6, accbuf ),
 };
 
+#elif defined(HAVE_LIS3DH)
+static i2c_msg imuinit[] = {
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_TEMP_CFG, 0x40 ),	// enable temp sensor
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL1,    0x97 ),	// 1.25kHz DR, enable acc
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL2,    0 ),	// no high-pass
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL3,    0 ),	// no ints
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL4,    0x08 ),	// continuous, little-endian, +-2g, hi-res
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL5,    0x0 ),	// no fifo
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL6,    0x0 ),	// undocumented
+};
+
+static i2c_msg imuoff[] = {
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_CTRL1,    0 ),	// power down mode
+    I2C_MSG_C2( LIS3DH_ADDRESS,   0, LIS3DH_REGISTER_TEMP_CFG, 0 ),	// disable temp
+};
+
+static i2c_msg imuprobe[] = {
+    I2C_MSG_C1( LIS3DH_ADDRESS,   0,             LIS3DH_REGISTER_WHOAMI ),
+    I2C_MSG_DL( LIS3DH_ADDRESS,   I2C_MSGF_READ, 1, probeaccel ),
+};
+
+static i2c_msg imureadall[] = {
+    I2C_MSG_C1( LIS3DH_ADDRESS,   0,             LIS3DH_REGISTER_OUT_X_L | 0x80 ),
+    I2C_MSG_DL( LIS3DH_ADDRESS,   I2C_MSGF_READ, 6, accbuf ),
+
+    // QQQ - read adc channels?
+};
+
+static i2c_msg imureadmost[] = {
+    I2C_MSG_C1( LIS3DH_ADDRESS,   0,             LIS3DH_REGISTER_OUT_X_L | 0x80 ),
+    I2C_MSG_DL( LIS3DH_ADDRESS,   I2C_MSGF_READ, 6, accbuf ),
+};
+
+static i2c_msg imureadquick[] = {
+    I2C_MSG_C1( LIS3DH_ADDRESS,   0,             LIS3DH_REGISTER_OUT_X_L | 0x80 ),
+    I2C_MSG_DL( LIS3DH_ADDRESS,   I2C_MSGF_READ, 6, accbuf ),
+};
+
+
+#else
+#  error "no imu"
+#endif
+
 /****************************************************************/
 
 void
@@ -83,11 +127,19 @@ imu_init(void){
         // try to read
         i2c_xfer(I2CUNIT, ELEMENTSIN(imuprobe), imuprobe, 100000);
 
+#if defined(HAVE_LSM303D)
         if( probeaccel[0] == LSM303D_WHOAMI ){
             have_accel = 1;
             bootmsg("imu lsm303d at i2c%d addr %x\n", I2CUNIT, LSM303D_ADDRESS);
             break;
         }
+#elif defined(HAVE_LIS3DH)
+        if( probeaccel[0] == LIS3DH_WHOAMI ){
+            have_accel = 1;
+            bootmsg("imu lis3dh at i2c%d addr %x\n", I2CUNIT, LIS3DH_ADDRESS);
+            break;
+        }
+#endif
     }
 }
 
@@ -115,7 +167,7 @@ imu_test(void){
 
 }
 
-#if 0
+#if 1
 static int i2c_speed[] = { /*900000, 800000, 700000,  600000, 500000,*/ 400000, 300000, 200000, 100000 };
 
 DEFUN(imuprobe, "probe imu")

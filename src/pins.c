@@ -269,6 +269,22 @@ getpinname(int p){
 }
 
 int
+getpintypei(int p){
+    return config[p].mode;
+}
+
+int
+getpintype(const char *pin){
+    short p = find_pin(pin);
+    if( p == -1 ){
+        fprintf(STDERR, "invalid pin '%s'\n", pin);
+        return 0;
+    }
+
+    return getpintypei(p);
+}
+
+int
 getpin(const char *pin){
     short p = find_pin(pin);
     if( p == -1 ){
@@ -327,7 +343,7 @@ getpins_all(uint32_t mask, short *values){
         }
     }
     utime_t t3 = get_hrtime();
-    printf("get all %d, %d, %d\n", (int)(t1-t0), (int)(t2-t1), (int)(t3-t2));
+    //printf("get all %d, %d, %d\n", (int)(t1-t0), (int)(t2-t1), (int)(t3-t2));
 #else
     for(i=0; i<NUM_PINS; i++){
         if( mask & (1<<i) ) values[i] = getpini( i );

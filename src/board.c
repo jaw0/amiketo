@@ -21,8 +21,20 @@
 #include "board.h"
 
 
+// hwinit      - called early in init process, to init hw
 // board_init  - always runs
 // board_init2 - skipped on quick wake-and-back-asleep
+
+void
+hwinit(void){
+
+#ifdef AMIKETO_v1
+    // enable power to sdcard+display (not on v0 board)
+    // must be enabled before we init the card or dpy
+    gpio_init( BOT_GPIO_NPWREN, GPIO_OUTPUT | GPIO_PUSH_PULL | GPIO_SPEED_25MHZ );
+    gpio_clear( BOT_GPIO_NPWREN );
+#endif
+}
 
 void
 board_init(void){
@@ -57,7 +69,6 @@ board_disable(void){
 
     imu_disable();
     pmic_disable();
-    // RSN - turn off power to display, sd
 }
 
 

@@ -67,7 +67,7 @@ static bool    overrun_warned  = 0;
 static bool    overflow_warned = 0;
 
 // for the disk write process
-static char    datbuf[BUFSIZE];			// output buffer
+char    datbuf[BUFSIZE];			// output buffer
 static int     logpos          = 0;		// current end position
 static int     savepos         = 0;		// current start
 static proc_t  bufproc_pid     = 0;
@@ -490,7 +490,7 @@ DEFUN(logger_rate, "set logging rate")
 
 // +A0 - enable logging
 // -A0 - disable
-DEFUN(logger_values, "specify which log_values to log")
+DEFUN(logger_values, "specify which values to log")
 {
     short i, p, e;
 

@@ -13,6 +13,8 @@
 #define BOT_GPIO_DPY_CS         GPIO_B12
 #define BOT_GPIO_SD_CS          GPIO_A8
 #define BOT_GPIO_SD_DET         GPIO_A15
+#define BOT_GPIO_NPWREN		GPIO_B5
+#define BOT_GPIO_IMUINT		GPIO_B4
 
 #define BOT_GPIO_LED_WHITE      GPIO_B8
 #define BOT_GPIO_AUDIO          GPIO_B9
@@ -20,3 +22,9 @@
 #define BOT_TIMER_LED_WHITE     TIMER_4_3
 #define BOT_TIMER_AUDIO         TIMER_4_4
 
+
+#if defined(AMIKETO_v1)
+# define HAVE_LIS3DH
+#else
+# define HAVE_LSM303D
+#endif

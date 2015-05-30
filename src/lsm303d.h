@@ -3,7 +3,6 @@
 
 // SA0 = Gnd
 #define LSM303D_ADDRESS          (0x3C >> 1)         // 0011001x
-
 #define LSM303D_WHOAMI		    0x49
 
 #define LSM303D_REGISTER_TEMP_OUT_L 0x05
