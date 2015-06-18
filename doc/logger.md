@@ -40,8 +40,11 @@ can choose to log or not log the samples, or perform other actions.
 `logger_autostart = <0,1>` - start the logger automaitically at boot
 
 `logger_start` - manually start the logger
+
 `logger_stop`  - stop the logger
+
 `logger_reload` - reload logging parameters
+
 `logger_rotate` - rotate the log file
 
 
