@@ -1,0 +1,38 @@
+
+# part number                   description             price-single/qty=10/qty=100
+###################################################################################
+
+# oshpark:
+board				board			$12//6.50
+
+# mouser:
+712-BAT-HLD-012-SMT             cr1216 holder,          $.28/.26/.23
+ABS07-32.768KHz-1-T             32kHz, 12.5pF, 10ppm,   $1.28/1.13/1.06
+CSTCE12M0G15L99-R0              12MHz, 0.1%, resonator  $.62/.44/.39
+LIS3DH                          accel,                  $1.65/1.34/1.07
+ADP5062                         pmic                    $3.78/3.38/2.77
+MAX17048                        batt gauge              $2.64//1.80
+STM32F411CEU6                   cpu                     $8.27/7.45/6.11
+IRLML6344TRPBF                  n-mosfet,               $.40/.17/.13
+DMP2035U-7                      p-mosfet,               $.49/.29/.13
+SD0805S020S1R0                  1A diode, 0805,         $.10//.08
+1N4148                   	diode, sod323,    	$.06/.05/.04
+MCP1700T-3302E/TT		3v3 ldo, 1.6uA off      $.40/.37/.28
+KMR211NG LFS                    button                  $.35//.25
+KMR211NG LFS                    button                  $.35//.25
+1206L075THYR                    750mA ptc fuse          $.45/.36/.30
+10118192-0001LF                 usb conn                $.46/.32/.27
+SMT-0540-S-R                    spkr                    $3.50/2.92/2.34
+MLZ1608N100L                    10uH                    $.17/.12/.09
+GRM32EC70J107ME15L              100uF                   $.81/.51/.31
+720-LWQ38EQ1S23K6L1             white led               $.21/.18/.14
+
+# digikey:
+# or similar. low profile looks nicer, but whatever...
+1212-1258			female 30pin, low pro	$.76/.69/.59
+101-00660-68-6-1-ND             micro-sd, ejector       $1.82/1.65/1.42
+455-1749-1-ND                   jst conn                $.56/.52/.40
+
+# I'm not going to itemize these:
+misc				assorted R+C, 0603	$1/1/1
+
