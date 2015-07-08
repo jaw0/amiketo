@@ -1089,6 +1089,22 @@ DOWN</text>
 <circle x="0" y="0" radius="1.1" width="0" layer="39"/>
 <circle x="0" y="0" radius="1.1" width="0" layer="51"/>
 </package>
+<package name="HEADER-3X2-POGO">
+<pad name="1" x="0" y="0" drill="0.635" diameter="1.524" shape="square"/>
+<pad name="2" x="0" y="2.54" drill="0.635" diameter="1.524"/>
+<pad name="3" x="2.54" y="0" drill="0.635" diameter="1.524"/>
+<pad name="4" x="2.54" y="2.54" drill="0.635" diameter="1.524"/>
+<pad name="5" x="5.08" y="0" drill="0.635" diameter="1.524"/>
+<pad name="6" x="5.08" y="2.54" drill="0.635" diameter="1.524"/>
+<text x="-1.27" y="4.445" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="-1.27" y1="1.27" x2="1.27" y2="1.27" width="0.127" layer="21"/>
+<wire x1="1.27" y1="1.27" x2="1.27" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="-1.27" y1="3.81" x2="6.35" y2="3.81" width="0.127" layer="21"/>
+<wire x1="6.35" y1="3.81" x2="6.35" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="6.35" y1="-1.27" x2="-1.27" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="-1.27" y1="-1.27" x2="-1.27" y2="3.81" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="STM32F411/48">
@@ -2299,6 +2315,19 @@ LOGO</text>
 </gates>
 <devices>
 <device name="-PTH" package="HEADER-3X2-PTH">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+<connect gate="G$1" pin="P$2" pad="2"/>
+<connect gate="G$1" pin="P$3" pad="3"/>
+<connect gate="G$1" pin="P$4" pad="4"/>
+<connect gate="G$1" pin="P$5" pad="5"/>
+<connect gate="G$1" pin="P$6" pad="6"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="-POGO" package="HEADER-3X2-POGO">
 <connects>
 <connect gate="G$1" pin="P$1" pad="1"/>
 <connect gate="G$1" pin="P$2" pad="2"/>
@@ -7057,7 +7086,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="VCC5" library="jaw" deviceset="PWR-VCC" device=""/>
 <part name="VCCE1" library="jaw" deviceset="PWR-VCCE" device=""/>
 <part name="R11" library="jaw" deviceset="R" device="0603" value="1M"/>
-<part name="CN2" library="jaw" deviceset="HEADER-3X2" device="-PTH" value="DO NOT PLACE"/>
+<part name="CN2" library="jaw" deviceset="HEADER-3X2" device="-POGO" value="DO NOT PLACE"/>
 <part name="JP2" library="SparkFun-Connectors" deviceset="M13" device=""/>
 <part name="VCCE3" library="jaw" deviceset="PWR-VCCE" device=""/>
 <part name="U$1" library="jaw" deviceset="FIDUCIAL" device=""/>
