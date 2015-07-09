@@ -66,7 +66,7 @@ input_read_all(void){
 
     // upside-down + button => ^C
     // RSN - upside-down + shake?
-    if( accel_z() < -500 && gpio_get(BOT_GPIO_BUTTON) ){
+    if( accel_z() < -500 && gpio_get(HWCF_GPIO_BUTTON) ){
         play(ivolume, "a-4a-4a-4d-3");
         while(1){
             read_imu_all();
@@ -82,10 +82,10 @@ input_read_all(void){
 int
 check_button(){
 
-    if( gpio_get( BOT_GPIO_BUTTON ) ){
+    if( gpio_get( HWCF_GPIO_BUTTON ) ){
         effect_a();
 
-        while( gpio_get( BOT_GPIO_BUTTON ) ){
+        while( gpio_get( HWCF_GPIO_BUTTON ) ){
             input_read_all();
             usleep(10000);
         }

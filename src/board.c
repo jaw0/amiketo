@@ -28,11 +28,18 @@
 void
 hwinit(void){
 
-#ifdef AMIKETO_v1
+#if defined(AMIKETO_v1) || defined(AMIKETO_v2)
     // enable power to sdcard+display (not on v0 board)
     // must be enabled before we init the card or dpy
-    gpio_init( BOT_GPIO_NPWREN, GPIO_OUTPUT | GPIO_PUSH_PULL | GPIO_SPEED_25MHZ );
-    gpio_clear( BOT_GPIO_NPWREN );
+    gpio_init( HWCF_GPIO_NPWREN, GPIO_OUTPUT | GPIO_PUSH_PULL | GPIO_SPEED_25MHZ );
+    gpio_clear( HWCF_GPIO_NPWREN );
+#endif
+#ifdef AMIKETO_v2
+    // and toggle nrst2
+    gpio_init( HWCF_GPIO_NRST2, GPIO_OUTPUT | GPIO_PUSH_PULL | GPIO_SPEED_25MHZ );
+    gpio_clear( HWCF_GPIO_NRST2 );
+    for(i=0; i<200000; i++){ asm("nop"); }
+    gpio_set( HWCF_GPIO_NRST2 );
 #endif
 }
 
@@ -41,20 +48,22 @@ board_init(void){
 
     bootmsg("board hw init\n");
 
-    // enable i+d cache, prefecth=off => faster + lower adc noise
+    // enable i+d cache, prefetch=off => faster + lower adc noise
     // nb: prefetch=on => more faster, less power, more noise
     FLASH->ACR  |= 0x600;
 
     // beeper
-    gpio_init( BOT_GPIO_AUDIO, GPIO_AF(2) | GPIO_SPEED_25MHZ );
-    pwm_init(  BOT_TIMER_AUDIO, 440, 255 );
-    pwm_set(   BOT_TIMER_AUDIO, 0);
+    gpio_init( HWCF_GPIO_AUDIO, GPIO_AF(2) | GPIO_SPEED_25MHZ );
+    pwm_init(  HWCF_TIMER_AUDIO, 440, 255 );
+    pwm_set(   HWCF_TIMER_AUDIO, 0);
 
-    // LEDs
-    gpio_init( BOT_GPIO_LED_WHITE,   GPIO_AF(2) | GPIO_SPEED_25MHZ );
-    pwm_set(   BOT_TIMER_LED_WHITE,  0);
+    // LED
+    gpio_init( HWCF_GPIO_LED_WHITE,   GPIO_AF(2) | GPIO_SPEED_25MHZ );
+    pwm_set(   HWCF_TIMER_LED_WHITE,  0);
 
-    gpio_init( BOT_GPIO_BUTTON,      GPIO_INPUT );
+    // button
+    gpio_init( HWCF_GPIO_BUTTON,      GPIO_INPUT );
+
 }
 
 void
@@ -69,6 +78,10 @@ board_disable(void){
 
     imu_disable();
     pmic_disable();
+
+#if defined(AMIKETO_v1) || defined(AMIKETO_v2)
+    gpio_set( HWCF_GPIO_NPWREN );
+#endif
 }
 
 
@@ -77,14 +90,14 @@ debug_set_led(int v){
     static initp = 0;
 
     if( !initp ){
-        gpio_init( BOT_GPIO_LED_WHITE,  GPIO_OUTPUT | GPIO_PUSH_PULL | GPIO_SPEED_25MHZ );
+        gpio_init( HWCF_GPIO_LED_WHITE,  GPIO_OUTPUT | GPIO_PUSH_PULL | GPIO_SPEED_25MHZ );
         initp = 1;
     }
 
     if( v )
-        gpio_set( BOT_GPIO_LED_WHITE );
+        gpio_set( HWCF_GPIO_LED_WHITE );
     else
-        gpio_clear( BOT_GPIO_LED_WHITE );
+        gpio_clear( HWCF_GPIO_LED_WHITE );
 
 }
 

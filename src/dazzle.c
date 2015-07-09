@@ -53,8 +53,8 @@ beep_set(int freq, int vol){
     if( vol > 128 ) vol = 128;
     if( vol < 0  )  vol = 0;
 
-    freq_set(BOT_TIMER_AUDIO, freq);
-    pwm_set(BOT_TIMER_AUDIO,  vol);
+    freq_set(HWCF_TIMER_AUDIO, freq);
+    pwm_set(HWCF_TIMER_AUDIO,  vol);
 }
 
 void
@@ -62,10 +62,10 @@ beep(int freq, int vol, int dur){
     if( vol > 128 ) vol = 128;
     if( vol < 1  )  vol = 1;
 
-    freq_set(BOT_TIMER_AUDIO, freq);
-    pwm_set(BOT_TIMER_AUDIO,  vol);
+    freq_set(HWCF_TIMER_AUDIO, freq);
+    pwm_set(HWCF_TIMER_AUDIO,  vol);
     usleep(dur);
-    pwm_set(BOT_TIMER_AUDIO,  0);
+    pwm_set(HWCF_TIMER_AUDIO,  0);
 }
 
 DEFUN(beep, "beep")
@@ -81,7 +81,7 @@ DEFUN(beep, "beep")
 
 void
 set_led_white(int v){
-    pwm_set( BOT_TIMER_LED_WHITE, v & 255 );
+    pwm_set( HWCF_TIMER_LED_WHITE, v & 255 );
 }
 
 void
