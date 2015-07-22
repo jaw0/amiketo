@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -7034,6 +7034,21 @@ You are welcome to use this library for commercial purposes. For attribution, we
 thru dpy + sd card while off</text>
 <text x="210.82" y="43.18" size="1.27" layer="97">generate reset for display
 after Q2 is turned on</text>
+<wire x1="355.6" y1="38.1" x2="355.6" y2="86.36" width="0.635" layer="97"/>
+<wire x1="355.6" y1="86.36" x2="424.18" y2="86.36" width="0.635" layer="97"/>
+<wire x1="355.6" y1="88.9" x2="355.6" y2="134.62" width="0.635" layer="97"/>
+<wire x1="355.6" y1="134.62" x2="424.18" y2="134.62" width="0.635" layer="97"/>
+<wire x1="355.6" y1="137.16" x2="355.6" y2="218.44" width="0.635" layer="97"/>
+<wire x1="266.7" y1="228.6" x2="266.7" y2="172.72" width="0.635" layer="97"/>
+<wire x1="266.7" y1="172.72" x2="353.06" y2="172.72" width="0.635" layer="97"/>
+<wire x1="266.7" y1="170.18" x2="266.7" y2="96.52" width="0.635" layer="97"/>
+<wire x1="266.7" y1="96.52" x2="353.06" y2="96.52" width="0.635" layer="97"/>
+<wire x1="266.7" y1="91.44" x2="266.7" y2="5.08" width="0.635" layer="97"/>
+<wire x1="7.62" y1="91.44" x2="195.58" y2="91.44" width="0.635" layer="97"/>
+<wire x1="195.58" y1="91.44" x2="195.58" y2="5.08" width="0.635" layer="97"/>
+<wire x1="198.12" y1="91.44" x2="266.7" y2="91.44" width="0.635" layer="97"/>
+<wire x1="86.36" y1="93.98" x2="86.36" y2="154.94" width="0.635" layer="97"/>
+<text x="294.64" y="48.26" size="1.27" layer="97" ratio="10">configure gpio with pullup</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="175.26" y="121.92"/>
@@ -7125,13 +7140,13 @@ after Q2 is turned on</text>
 <instance part="C7" gate="G$1" x="226.06" y="165.1" rot="R270"/>
 <instance part="U2" gate="G$1" x="314.96" y="134.62"/>
 <instance part="JP1" gate="G$1" x="391.16" y="175.26"/>
-<instance part="C12" gate="G$1" x="355.6" y="104.14"/>
-<instance part="GND4" gate="G$1" x="355.6" y="99.06"/>
-<instance part="VCC6" gate="G$1" x="355.6" y="111.76"/>
+<instance part="C12" gate="G$1" x="414.02" y="104.14"/>
+<instance part="GND4" gate="G$1" x="414.02" y="99.06"/>
+<instance part="VCC6" gate="G$1" x="414.02" y="111.76"/>
 <instance part="D2" gate="G$1" x="63.5" y="137.16"/>
-<instance part="R3" gate="G$1" x="137.16" y="114.3" rot="R90"/>
-<instance part="R9" gate="G$1" x="142.24" y="114.3" rot="R90"/>
-<instance part="VCC7" gate="G$1" x="139.7" y="124.46"/>
+<instance part="R3" gate="G$1" x="132.08" y="114.3" rot="R90"/>
+<instance part="R9" gate="G$1" x="139.7" y="114.3" rot="R90"/>
+<instance part="VCC7" gate="G$1" x="134.62" y="124.46"/>
 <instance part="CONN1" gate="G$1" x="386.08" y="55.88"/>
 <instance part="R10" gate="G$1" x="304.8" y="187.96" rot="R270"/>
 <instance part="R11" gate="G$1" x="215.9" y="63.5" rot="R180"/>
@@ -7470,11 +7485,11 @@ after Q2 is turned on</text>
 <segment>
 <pinref part="R3" gate="G$1" pin="P$2"/>
 <pinref part="R9" gate="G$1" pin="P$2"/>
-<wire x1="137.16" y1="119.38" x2="139.7" y2="119.38" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="119.38" x2="134.62" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="VCC7" gate="G$1" pin="VCC"/>
-<wire x1="139.7" y1="119.38" x2="142.24" y2="119.38" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="119.38" x2="139.7" y2="121.92" width="0.1524" layer="91"/>
-<junction x="139.7" y="119.38"/>
+<wire x1="134.62" y1="119.38" x2="139.7" y2="119.38" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="119.38" x2="134.62" y2="121.92" width="0.1524" layer="91"/>
+<junction x="134.62" y="119.38"/>
 </segment>
 </net>
 <net name="BOOT0" class="0">
@@ -7827,7 +7842,7 @@ after Q2 is turned on</text>
 <segment>
 <pinref part="CN1" gate="G$1" pin="SW1"/>
 <wire x1="307.34" y1="50.8" x2="304.8" y2="50.8" width="0.1524" layer="91"/>
-<label x="297.18" y="50.8" size="1.27" layer="95"/>
+<label x="294.64" y="50.8" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$11" class="0">
@@ -7870,12 +7885,12 @@ after Q2 is turned on</text>
 <net name="I2CCL" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB6"/>
-<wire x1="157.48" y1="104.14" x2="137.16" y2="104.14" width="0.1524" layer="91"/>
-<label x="127" y="104.14" size="1.27" layer="95"/>
+<wire x1="157.48" y1="104.14" x2="132.08" y2="104.14" width="0.1524" layer="91"/>
+<label x="121.92" y="104.14" size="1.27" layer="95"/>
 <pinref part="R3" gate="G$1" pin="P$1"/>
-<wire x1="137.16" y1="104.14" x2="132.08" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="109.22" x2="137.16" y2="104.14" width="0.1524" layer="91"/>
-<junction x="137.16" y="104.14"/>
+<wire x1="132.08" y1="104.14" x2="127" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="109.22" x2="132.08" y2="104.14" width="0.1524" layer="91"/>
+<junction x="132.08" y="104.14"/>
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="SCL"/>
@@ -7906,12 +7921,12 @@ after Q2 is turned on</text>
 <net name="I2CDA" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB7"/>
-<wire x1="157.48" y1="101.6" x2="142.24" y2="101.6" width="0.1524" layer="91"/>
-<label x="127" y="101.6" size="1.27" layer="95"/>
+<wire x1="157.48" y1="101.6" x2="139.7" y2="101.6" width="0.1524" layer="91"/>
+<label x="121.92" y="101.6" size="1.27" layer="95"/>
 <pinref part="R9" gate="G$1" pin="P$1"/>
-<wire x1="142.24" y1="101.6" x2="132.08" y2="101.6" width="0.1524" layer="91"/>
-<wire x1="142.24" y1="109.22" x2="142.24" y2="101.6" width="0.1524" layer="91"/>
-<junction x="142.24" y="101.6"/>
+<wire x1="139.7" y1="101.6" x2="127" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="109.22" x2="139.7" y2="101.6" width="0.1524" layer="91"/>
+<junction x="139.7" y="101.6"/>
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="SDA"/>
