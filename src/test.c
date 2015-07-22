@@ -106,3 +106,71 @@ DEFUN(fonttest, "font test")
     ui_resume();
     return 0;
 }
+
+DEFUN(testtiming, "test timing")
+{
+#define TESTTIME      get_hrtime()
+//#define TESTTIME                (- SysTick->VAL)
+
+    // otherwise we task switch during imu
+    currproc->flags |= PRF_REALTIME;
+    currproc->prio = 0;
+
+    ui_pause();
+    usleep(1);
+    int t0 = TESTTIME;
+    read_pmic();
+    int t1 = TESTTIME;
+    log_one();
+    int t2 = TESTTIME;
+    read_imu_quick();
+    int t3 = TESTTIME;
+    yield();
+    int t4 = TESTTIME;
+    // read_encoders();
+    int t5 = TESTTIME;
+
+    ui_resume();
+    printf("timing pmic: %d, acq: %d, enc: %d, imu: %d, ctx: %d\n",
+           t1-t0, t2-t1, t5-t4, t3-t2, t4-t3);
+
+    ui_pause();
+    t0 = get_hrtime();
+    FILE *f = fopen("test.out", "w!");
+
+    fwrite(f, (char*)0x20000000, 1024);
+    fclose(f);
+    t1 = get_hrtime();
+    ui_resume();
+    printf("1k file: %d\n", t1-t0);
+
+    ui_pause();
+    t0 = get_hrtime();
+    f = fopen("test.out", "w!");
+    fwrite(f, (char*)0x20000000, 4096);
+    fclose(f);
+    t1 = get_hrtime();
+    ui_resume();
+    printf("4k file: %d\n", t1-t0);
+
+    ui_pause();
+    t0 = get_hrtime();
+    f = fopen("fl0:test.out", "w!");
+    fwrite(f, (char*)0x20000000, 1024);
+    fclose(f);
+    t1 = get_hrtime();
+    ui_resume();
+    printf("1k file to flash: %d\n", t1-t0);
+
+    // oled
+    ui_pause();
+    t0 = get_hrtime();
+    f = fopen("dev:oled0", "w");
+    fprintf(f, "hello world\n");
+    fclose(f);
+    t1 = get_hrtime();
+    ui_resume();
+    printf("oled: %d\n", t1-t0);
+
+    return 0;
+}

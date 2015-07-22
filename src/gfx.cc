@@ -113,7 +113,7 @@ splash( GFXdpy *dpy ){
     dpy->puts("STM32F411");
 
     dpy->set_pos(62, 45);
-    dpy->puts("Rev. 0");
+    dpy->puts("Rev. 1");
 
     dpy->set_pos(80,55);
     dpy->puts("/2015-04");

@@ -22,7 +22,6 @@
 #define TILT_MIN	500		// ~ 30 degree tilt
 #define IDLETIME	10		// seconds until screensaver
 
-// XXX - assumes 128x32 oled display
 
 /*
 u+80	arrowleft
@@ -49,15 +48,12 @@ ui_sleep(void){
 
     FILE *f = fopen("dev:oled0", "w");
     fioctl(f, IOC_GFXSLEEP, 1);		// oled sleep mode
-    // DMA is needed for sdcard
-    // RCC->AHB1ENR &= ~(1<<21);	// disable DMA1
     menu_paused = 2;
 }
 
 void
 ui_awake(void){
 
-    // RCC->AHB1ENR |= 1<<21;
     FILE *f = fopen("dev:oled0", "w");
     fioctl(f, IOC_GFXSLEEP, 0);
     menu_paused = 0;

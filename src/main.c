@@ -96,7 +96,7 @@ random(void){
 
     x = (x<<7) | (x>>25);
     x ^= y;
-    return x;
+    return x ^ lrand48();
 }
 
 
@@ -220,13 +220,17 @@ main(void){
 
     set_onwake( 0 );
     set_led_white( 0xFF );	// flash LED
-    // two_copies("config.rc");	// to be safe
     board_init2();
+    set_led_white( 0x3F );
 
-    set_led_white( 0 );
     play(6, "g4g4g4f4z4a4g2");
     RUN_SCRIPT("startup.rc");
 
+    while( check_button() ){
+        usleep(1000);
+    }
+
+    set_led_white( 0 );
     start_proc(512, blinky, "blinky");
 
     if( dpy_ui_enable )

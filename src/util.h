@@ -13,7 +13,9 @@
 #define MAX(a,b)        	(((a)>(b)) ? (a) : (b))
 
 
+#ifndef __cplusplus
 typedef char bool;
+#endif
 
 extern unsigned int random(void);
 

@@ -51,12 +51,12 @@ DEFVAR(int, logger_beep_buf, 0, UV_TYPE_UL, "beep")
 // for the data acquisition process
 static utime_t  log_usec            = 0;	// current sample period
 static char     log_usec_txt[32];		// sample rate in text format
+static bool     log_use_timer       = 0;	// are we using the timer or os scheduler
 static int      log_fmt             = 0;	// log file format
 static void     (*log_output)(void) = 0;
 static proc_t   logproc_pid         = 0;
 static bool     logproc_close       = 0;
 static bool     logproc_pause       = 0;
-static bool     use_timer           = 0;	// are we using the timer or os scheduler
 
 uint32_t log_chkval                 = 0; 	// the script needs these values
 uint32_t log_logval                 = 0; 	// output these values
@@ -166,10 +166,10 @@ logger_init_timer(void){
 
     if( log_usec < 1000000 ){
         timer_init( log_usec );
-        use_timer = 1;
+        log_use_timer = 1;
     }else{
         timer_init( 0 );
-        use_timer = 0;
+        log_use_timer = 0;
     }
 }
 
@@ -343,7 +343,7 @@ logproc(void){
         if(logger_beep_acq) play(4, "a7>>");
 
         log_one();
-        if( use_timer ){
+        if( log_use_timer ){
 #if 0
             utime_t t1 = get_hrtime();
             utime_t usec = t1 - t0;
@@ -455,15 +455,15 @@ DEFUN(logger_format, "set log file format")
 // M - minutes
 // H - hours
 // D - days
-DEFUN(logger_rate, "set logging rate")
-{
-    if( argc < 2 ) return error("specify seconds\n");
-    utime_t usec = atoi( argv[1] );
+utime_t
+str2rate(const char *arg){
+
+    utime_t usec = atoi( arg );
 
     // find units
     char i=0, u=0;
-    while( argv[1][i] ){
-        if( !isdigit(argv[1][i]) ) u = argv[1][i];
+    while( arg[i] ){
+        if( !isdigit(arg[i]) ) u = arg[i];
         i++;
     }
     switch(u){
@@ -477,6 +477,14 @@ DEFUN(logger_rate, "set logging rate")
     default:
         usec *= 1000000; break;
     }
+
+    return usec;
+}
+
+DEFUN(logger_rate, "set logging rate")
+{
+    if( argc < 2 ) return error("specify seconds\n");
+    utime_t usec = str2rate( argv[1] );
 
     strncpy(log_usec_txt, argv[1], sizeof(log_usec_txt));
 
