@@ -16,6 +16,7 @@ hardware:
   *  8 PWM outputs
   * i2c, spi, uart, usb
   * real-time-clock
+  * board compat with most 48pin STM32s (eg. F103, L152, L072)
 * micro SD card
 * audio speaker
 * OLED display
